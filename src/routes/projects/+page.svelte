@@ -67,6 +67,27 @@
       <p><a href="github.com"><i>repo </i></a></p>
       <a href="https://gigwork.city/">website</a>
     </Step>
+    <Step>
+      <svelte:fragment slot="header"> River Sentiment Dashboard</svelte:fragment>
+  
+  
+      <p>
+        People talk about rivers online: from complaints about pollution to celebrations of wildlife, rivers provoke passionate social media comments. When people express their feelings about rivers on Twitter, we get a glimpse of how nature affects human wellbeing. The River Sentiment Dashboard displays social media sentiment alongside data about the ecological status of more than 450 rivers in the Thames basin in England. This prototype has been developed by Oxford University and Thames21.</p>
+ 
+      <p><a href="github.com"><i>repo </i></a></p>
+      <a href="https://gigwork.city/">website</a>
+    </Step>
+    <Step>
+      <svelte:fragment slot="header">eaCatcher</svelte:fragment>
+
+  
+      <p>
+        The eaCatcheR R package provides an interface to data from the environment.data.gov.uk catchment planner, which is a resource for various spatial and ecological datasets on waterbodies in England. The package contains three main functions: get_wb_rnag(), get_wb_classification(), and get_wb_sf(), each of which allows you to access data based on geography type (e.g. RBD, MC, OC) and the name of the geography you wish to search.
+      </p>
+ 
+      <p><a href="github.com"><i>repo </i></a></p>
+      <a href="https://gigwork.city/">website</a>
+    </Step>
     <!-- ... -->
   </Stepper>
   
