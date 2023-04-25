@@ -1,7 +1,11 @@
 <script lang="ts">
     import { Stepper, Step } from '@skeletonlabs/skeleton';
   </script>
-  
+  <svelte:head>
+    <title>Software | Nathanael Sheehan</title>
+    <meta name="robots" content="noindex nofollow" />
+    <html lang="en" />
+  </svelte:head>
   <Stepper stepTerm='Project'>
     <Step>
       <svelte:fragment slot="header">GIGWORK.city</svelte:fragment>
