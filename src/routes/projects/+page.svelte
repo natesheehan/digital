@@ -30,7 +30,7 @@
         "
         alt=""
       /> -->
-      <p><a href="github.com"><i>repo </i></a></p>
+      <p><a href="https://github.com/gigwork/Gigwork-Stories"><i>repo </i></a></p>
       <a href="https://gigwork.city/">website</a>
     </Step>
     <!-- ... -->
@@ -64,8 +64,8 @@
         See the formats page in the A/B Street documentation for details of the schema that the package outputs.
       </p>
  
-      <p><a href="github.com"><i>repo </i></a></p>
-      <a href="https://gigwork.city/">website</a>
+      <p><a href="https://github.com/a-b-street/abstr"><i>repo </i></a></p>
+      <a href="https://a-b-street.github.io/abstr/">website</a>
     </Step>
     <Step>
       <svelte:fragment slot="header"> River Sentiment Dashboard</svelte:fragment>
@@ -74,8 +74,8 @@
       <p>
         People talk about rivers online: from complaints about pollution to celebrations of wildlife, rivers provoke passionate social media comments. When people express their feelings about rivers on Twitter, we get a glimpse of how nature affects human wellbeing. The River Sentiment Dashboard displays social media sentiment alongside data about the ecological status of more than 450 rivers in the Thames basin in England. This prototype has been developed by Oxford University and Thames21.</p>
  
-      <p><a href="github.com"><i>repo </i></a></p>
-      <a href="https://gigwork.city/">website</a>
+      <p><a href="https://github.com/Digital-Water-Publics/Thames21-Socio-Ecological-Dashboard"><i>repo </i></a></p>
+      <a href="https://thames21ox.web.app/">website</a>
     </Step>
     <Step>
       <svelte:fragment slot="header">eaCatcher</svelte:fragment>
@@ -85,8 +85,39 @@
         The eaCatcheR R package provides an interface to data from the environment.data.gov.uk catchment planner, which is a resource for various spatial and ecological datasets on waterbodies in England. The package contains three main functions: get_wb_rnag(), get_wb_classification(), and get_wb_sf(), each of which allows you to access data based on geography type (e.g. RBD, MC, OC) and the name of the geography you wish to search.
       </p>
  
-      <p><a href="github.com"><i>repo </i></a></p>
-      <a href="https://gigwork.city/">website</a>
+      <p><a href="https://github.com/natesheehan/eaCatcheR"><i>repo </i></a></p>
+      <a href="https://natesheehan.github.io/eaCatcheR/">website</a>
+    </Step>
+    <Step>
+      <svelte:fragment slot="header">dimaqdata</svelte:fragment>
+
+  
+      <p>
+        This package contains ten datasets provided by the members of the Data Integration Task Force, a multi-disciplinary group of experts established as part of the recommendations from the first meeting of the WHO Global Platform for Air Quality in Geneva, January 2014.
+
+        who_world_map: sf WHO world map shapefile
+        
+        ground_monitor: sf Yearly global ground monitor station
+        
+        population_weighted_concentrations: df Yearly population weighted pm2.5 concentrations by country or WHO region
+        
+        global_exceed: df Yearly exceedances by country at 10,15,20,25 spatial scale
+        
+        pred_2011: sf 2011 Global Predictions spatial resolution (0.1° × 0.1°)
+        
+        pred_2012: sf 2012 Global Predictions spatial resolution (0.1° × 0.1°)
+        
+        pred_2013: sf 2013 Global Predictions spatial resolution (0.1° × 0.1°)
+        
+        pred_2014: sf 2014 Global Predictions spatial resolution (0.1° × 0.1°)
+        
+        pred_2015: sf 2015 Global Predictions spatial resolution (0.1° × 0.1°)
+        
+        pred_2016: sf 2016 Global Predictions spatial resolution (0.1° × 0.1°)
+       </p>
+ 
+      <p><a href="https://github.com/environmental-intelligence-exeter/dimaqdata"><i>repo </i></a></p>
+      <a href="https://environmental-intelligence-exeter.github.io/dimaqdata//">website</a>
     </Step>
     <!-- ... -->
   </Stepper>
