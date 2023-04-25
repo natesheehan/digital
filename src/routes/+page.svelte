@@ -1,0 +1,73 @@
+<!-- Multiple H1 elements with the mouseover effect -->
+<script lang="ts">
+    import { onMount } from "svelte";
+  
+    const emails = [
+      "GREETINGS. YOU HAVE LOCATED THE DIGITAL ARCHIVE OF NATHANAEL SHEEHAN. I AM A PHD STUDENT AT THE UNIVERSITY OF EXTER  STUDYING UNDER THE ENVIRONMENTAL PATHWAY",
+      "My research explores data in the post-genomic age, focusing on the geopolitics and philosophy of ‘open science’: a new approach to the scientific process based on cooperative work and new ways of diffusing knowledge by using digital technologies and new collaborative tools. Combining approaches from philosophy of science, computer science and science and technology studies, my doctoral thesis is grounded in the case of genomic surveillance, examining the historical and cultural elements at play in the dissemination and preservation of data in a crisis.",
+      "NS651@EXETER.AC.UK"
+    ];
+  
+    const alias = [
+        "asdjklas;jdsa;l",
+        "khjdaslkdhaskl",
+        "hsadkjhaskljdhkas"
+    ]
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let intervals: NodeJS.Timeout[] = [];
+  
+    onMount(() => {
+      const handleMouseOver = (index: number) => (event: MouseEvent) => {
+        const h1 = event.target as HTMLHeadingElement;
+        let iteration = 0;
+  
+        clearInterval(intervals[index]);
+  
+        intervals[index] = setInterval(() => {
+          h1.innerText = h1.innerText
+            .split("")
+            .map((letter, i) => {
+              if (i < iteration) {
+                return h1.dataset.value![i];
+              }
+              return letters[Math.floor(Math.random() * 26)];
+            })
+            .join("");
+  
+          if (iteration >= h1.dataset.value!.length) {
+            clearInterval(intervals[index]);
+          }
+  
+          iteration += 1 / 3;
+        }, 30);
+      };
+  
+      emails.forEach((email, index) => {
+        const h1 = document.querySelector(`h1[data-value="${email}"]`);
+        intervals[index] = null;
+  
+        if (h1) {
+          h1.addEventListener("mouseover", handleMouseOver(index));
+        }
+      });
+  
+      return () => {
+        intervals.forEach((interval, index) => {
+          clearInterval(interval);
+          const h1 = document.querySelector(`h1[data-value="${emails[index]}"]`);
+          if (h1) {
+            h1.removeEventListener("mouseover", handleMouseOver(index));
+          }
+        });
+      };
+    });
+  </script>
+  
+  <style>
+    /* CSS styles unchanged */
+  </style>
+  
+  {#each emails as email}
+    <h1 class="p-5 break-words" data-value={email}>{"ACGTTAGCAGGCTTCGACGAGTCCGGGAGGCTGACTCAGGTGACTGTTACAGCTTGATGGTGACGTAGGTTTGTTACGAGCTGTAGACTCTGGTTAGACCTATCAGTTCGATGTTGTCGAGGTCCCTGCTGTAGACTCCGAGGACTAGTGACGAGTGAACTCAGGTGTCTTTGGTGACTAGATTTACAGGACTATGAGGGGCTGGAGGACCATGCTAAGGCTGGGTAGACATGTTGACGCTACGTTAGCAGGCTTCGACGAGTCCGGGAGGCTGACTCAGGTGACTGTTACAGCTTGATGGTGACGTAGGTTTGTTACGAGCTGTAGACTCTGGTTAGACCTATCAGTTCGATGTTGTCGAGGTCCCTGCTGTAGACTCCGAGGACTAGTGACGAGTGAACTCAGGTGTCTTTGGTGACTAGATTTACAGGACTATGAGGGGCTGGAGGACCATGCTAAGGCTGGGTAGACATGTTGACGCTACGTTAGCAGGCTTCGACGAGTCCGGGAGGCTGACTCAGGTGACTGTTACAGCTTGATGGTGACGTAGGTTTGTTACGAGCTGTAGACTCTGGTTAGACCTATCAGTTCGATGTTGTCGAGGTCCCTGCTGTAGACTCCGAGGACTAGTGACGAGTGAACTCAGGTGTCTTTGGTGACTAGATTTACAGGACTATGAGGGGCTGGAGGACCATGCTAAGGCTGGGTAGACATGTTGACGCTACGTTAGCAGGCTTCGACGAGTCCGGGAGGCTGACTCAGGTGACTGTTACAGCTTGATGGTGACGTAGGTTTGTTACGAGCTGTAGACTCTGGTTAGACCTATCAGTTCGATGTTGTCGAGGTCCCTGCTGTAGACTCCGAGGACTAGTGACGAGTGAACTCAGGTGTCTTTGGTGACTAGATTTACAGGACTATGAGGGGCTGGAGGACCATGCTAAGGCTGGGTAGACATGTTGACGCTACGTTAGCAGGCTTCGACGAGTCCGGGAGGCTGACTCAGGTGACTGTTACAGCTTGATGGTGACGTAGGTTTGTTACGAGCTGTAGACTCTGGTTAGACCTATCAGTTCGATGTTGTCGAGGTCCCTGCTGTAGACTCCGAGGACTAGTGACGAGTGAACTCAGGTGTCTTTGGTGACTAGATTTACAGGACTATGAGGGGCTGGAGGACCATGCTAAGGCTGGGTAGACATGTTGACGCTACGTTAGCAGGCTTCGACGAGTCCGGGAGGCTGACTCAGGTGACTGTTACAGCTTGATGGTGACGTAGGTTTGTTACGAGCTGTAGACTCTGGTTAGACCTATCAGTTCGATGTTGTCGAGGTCCCTGCTGTAGACTCCGAGGACTAGTGACGAGTGAACTCAGGTGTCTTTGGTGACTAGATTTACAGGACTATGAGGGGCTGGAGGACCATGCTAAGGCTGGGTAGACATGTTGACGCTACGTTAGCAGGCTTCGACGAGTCCGGGAGGCTGACTCAGGTGACTGTTACAGCTTGATGGTGACGTAGGTTTGTTACGAGCTGTAGACTCTGGTTAGACCTATCAGTTCGATGTTGTCGAGGTCCCTGCTGTAGACTCCGAGGACTAGTGACGAGTGAACTCAGGTGTCTTTGGTGACTAGATTTACAGGACTATGAGGGGCTGGAGGACCATGCTAAGGCTGGGTAGACATGTTGACGCTACGTTAGCAGGCTTCGACGAGTCCGGGAGGCTGACTCAGGTGACTGTTACAGCTTGATGGTGACGTAGGTTTGTTACGAGCTGTAGACTCTGGTTAGACCTATCAGTTCGATGTTGTCGAGGTCCCTGCTGTAGACTCCGAGGACTAGTGACGAGTGAACTCAGGTGTCTTTGGTGACTAGATTTACAGGACTATGAGGGGCTGGAGGACCATGCTAAGGCTGGGTAGACATGTTGACGCTACGTTAGCAGGCTTCGACGAGTCCGGGAGGCTGACTCAGGTGACTGTTACAGCTTGATGGTGACGTAGGTTTGTTACGAGCTGTAGACTCTGGTTAGACCTATCAGTTCGATGTTGTCGAGGTCCCTGCTGTAGACTCCGAGGACTAGTGACGAGTGAACTCAGGTGTCTTTGGTGACTAGATTTACAGGACTATGAGGGGCTGGAGGACCATGCTAAGGCTGGGTAGACATGTTGACGCT"}</h1>
+  {/each}
+  a
