@@ -65,6 +65,6 @@ function drawerOpen(): void{
 	<slot />
 
 <svelte:fragment slot="footer">
-	<p>Peace and love to all cyborgs x</p>
+	<p class="text-center">Built with Svelte and Stealth x</p>
 </svelte:fragment>
 </AppShell>
