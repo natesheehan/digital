@@ -10,6 +10,6 @@
         <li><a href="/" on:click={drawerClose}>BIO</a></li>
         <li><a href="/projects" on:click={drawerClose}>SOFTWARE</a></li>
         <li><a href="/writing" on:click={drawerClose}>PUBLICATIONS</a></li>
-        <li><a href="/poems" on:click={drawerClose}>PROSE</a></li>
+        <!-- <li><a href="/poems" on:click={drawerClose}>PROSE</a></li> -->
     </ul>
 </nav>
