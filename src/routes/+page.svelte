@@ -4,8 +4,8 @@
     import { onMount } from "svelte";
   
     const emails = [
-      "Greetings, and welcome to the digital archive of Nathanael Sheehan, PhD candidate at the University of Exeter, specializing in the field of environmental intelligence. My research endeavors lie at the intersection of genomics, environmental studies, and the philosophy of open science. My current work delves into the complexities of data analysis in the post-genomic age, with a specific focus on the geopolitical and philosophical implications of open science. Utilizing a multi-disciplinary approach drawing from fields such as philosophy of science, computer science, and science and technology studies, my doctoral thesis aims to examine the role of cooperative work and digital technologies in the diffusion of knowledge. My research is grounded in the case of genomic surveillance, where I explore the cultural and historical elements that shape the dissemination and preservation of data in times of crisis. If you wish to engage with me on this exciting academic pursuit, please do not hesitate to contact me at NS651@EXETER.AC.UK."
-    ];
+  "nathanaelsheehan@gmail.com"  
+  ];
   
     const alias = [
         "asdjklas;jdsa;l",
@@ -66,7 +66,27 @@
   <title>Bio | Nathanael Sheehan</title>
 </svelte:head>
 
+<img src="me.png" style="float: right;">
 
-    <h1 class="p-5 break-words" data-value={emails}>{"ACGTTAGCAGGCTTCGACGAGTCCGGGAGGCTGACTCAGGTGACTGTTACAGCTTGATGGTGACGTAGGTTTGTTACGAGCTGTAGACTCTGGTTAGACCTATCAGTTCGATGTTGTCGAGGTCCCTGCTGTAGACTCCGAGGACTAGTGACGAGTGAACTCAGGTGTCTTTGGTGACTAGATTTACAGGACTATGAGGGGCTGGAGGACCATGCTAAGGCTGGGTAGACATGTTGACGCTACGTTAGCAGGCTTCGACGAGTCCGGGAGGCTGACTCAGGTGACTGTTACAGCTTGATGGTGACGTAGGTTTGTTACGAGCTGTAGACTCTGGTTAGACCTATCAGTTCGATGTTGTCGAGGTCCCTGCTGTAGACTCCGAGGACTAGTGACGAGTGAACTCAGGTGTCTTTGGTGACTAGATTTACAGGACTATGAGGGGCTGGAGGACCATGCTAAGGCTGGGTAGACATGTTGACGCTACGTTAGCAGGCTTCGACGAGTCCGGGAGGCTGACTCAGGTGACTGTTACAGCTTGATGGTGACGTAGGTTTGTTACGAGCTGTAGACTCTGGTTAGACCTATCAGTTCGATGTTGTCGAGGTCCCTGCTGTAGACTCCGAGGACTAGTGACGAGTGAACTCAGGTGTCTTTGGTGACTAGATTTACAGGACTATGAGGGGCTGGAGGACCATGCTAAGGCTGGGTAGACATGTTGACGCTACGTTAGCAGGCTTCGACGAGTCCGGGAGGCTGACTCAGGTGACTGTTACAGCTTGATGGTGACGTAGGTTTGTTACGAGCTGTAGACTCTGGTTAGACCTATCAGTTCGATGTTGTCGAGGTCCCTGCTGTAGACTCCGAGGACTAGTGACGAGTGAACTCAGGTGTCTTTGGTGACTAGATTTACAGGACTATGAGGGGCTGGAGGACCATGCTAAGGCTGGGTAGACATGTTGACGCTACGTTAGCAGGCTTCGACGAGTCCGGGAGGCTGACTCAGGTGACTGTTACAGCTTGATGGTGACGTAGGTTTGTTACGAGCTGTAGACTCTGGTTAGACCTATCAGTTCGATGTTGTCGAGGTCCCTGCTGTAGACTCCGAGGACTAGTGACGAGTGAACTCAGGTGTCTTTGGTGACTAGATTTACAGGACTATGAGGGGCTGGAGGACCATGCTAAGGCTGGGTAGACATGTTGACGCTACGTTAGCAGGCTTCGACGAGTCCGGGAGGCTGACTCAGGTGACTGTTACAGCTTGATGGTGACGTAGGTTTGTTACGAGCTGTAGACTCTGGTTAGACCTATCAGTTCGATGTTGTCGAGGTCCCTGCTGTAGACTCCGAGGACTAGTGACGAGTGAACTCAGGTGTCTTTGGTGACTAGATTTACAGGACTATGAGGGGCTGGAGGACCATGCTAAGGCTGGGTAGACATGTTGACGCTACGTTAGCAGGCTTCGACGAGTCCGGGAGGCTGACTCAGGTGACTGTTACAGCTTGATGGTGACGTAGGTTTGTTACGAGCTGTAGACTCTGGTTAGACCTATCAGTTCGATGTTGTCGAGGTCCCTGCTGTAGACTCCGAGGACTAGTGACGAGTGAACTCAGGTGTCTTTGGTGACTAGATTTACAGGACTATGAGGGGCTGGAGGACCATGCTAAGGCTGGGTAGACATGTTGACGCTACGTTAGCAGGCTTCGACGAGTCCGGGAGGCTGACTCAGGTGACTGTTACAGCTTGATGGTGACGTAGGTTTGTTACGAGCTGTAGACTCTGGTTAGACCTATCAGTTCGATGTTGTCGAGGTCCCTGCTGTAGACTCCGAGGACTAGTGACGAGTGAACTCAGGTGTCTTTGGTGACTAGATTTACAGGACTATGAGGGGCTGGAGGACCATGCTAAGGCTGGGTAGACATGTTGACGCTACGTTAGCAGGCTTCGACGAGTCCGGGAGGCTGACTCAGGTGACTGTTACAGCTTGATGGTGACGTAGGTTTGTTACGAGCTGTAGACTCTGGTTAGACCTATCAGTTCGATGTTGTCGAGGTCCCTGCTGTAGACTCCGAGGACTAGTGACGAGTGAACTCAGGTGTCTTTGGTGACTAGATTTACAGGACTATGAGGGGCTGGAGGACCATGCTAAGGCTGGGTAGACATGTTGACGCT"}</h1>
+
+<p>
+  I dance through city skylines, tracing the contours of rooftops like a needle on vinyl, leaving behind the echoes of forgotten tunes.</p>
+  <p>
+    I invite pigeons to join me in my quest to teach the stories that live between the cracks of the pavement.
+  </p>
+  <p>
+    I befriend stray cats with a purr of understanding and can silence a barking dog with a single gaze. 
+  </p>
+  <p>
+    I survived on daydreams and starlight long before I ever touched a drop of caffeine. 
+  </p>
+  <p>I climb hills with the enthusiasm of a mountain goat and descend with the reckless abandon of a child on a sled.</p>
+  <p>
+    I’ve learned the art of borrowing—recipes, jokes, and the best pieces of advice from people who never knew I was listening. 
+  </p>
+<h1> Get In Contact</h1>
+
+
+    <h1 class="p-5 break-words" data-value={emails}>{"*%^%$^*£$%£$*%£$*%£$*£$%^^"}</h1>
 
     
