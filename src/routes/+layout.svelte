@@ -50,7 +50,7 @@ function drawerOpen(): void{
 				<span>(twatta)</span>
 			</a>
 			<a class="logo-item" href="https://orcid.org/0000-0002-2779-0976">
-				<span>(ocrid)</span>
+				<span>(orcid)</span>
 			</a>
 			<!-- ... -->
 		</div>
