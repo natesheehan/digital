@@ -177,15 +177,16 @@
 
 <div class="content">
   <img src="me.png" alt="Profile Picture">
-
+<!-- 
   <p>I dance through city skylines, tracing the contours of rooftops like a needle on vinyl, leaving behind the echoes of forgotten tunes.</p>
   <p>I invite pigeons to join me in my quest to teach the stories that live between the cracks of the pavement.</p>
   <p>I befriend stray cats with a purr of understanding and can silence a barking dog with a single gaze.</p>
   <p>I survived on daydreams and starlight long before I ever touched a drop of caffeine.</p>
-  <p>I climb hills with the enthusiasm of a mountain goat and descend with the reckless abandon of a child on a sled.</p>
+  <p>I climb hills with the enthusiasm of a mountain goat and descend with the reckless abandon of a child on a sled.</p> -->
+  <h1>if you are well, all is well, and I am well too</h1>
   <h3>I am Nathanael Sheehan (he/him) a final year doctoral candidate at the University of Exeter, where my research focuses on the "Diversity and Injustice of Open Research Environments". This research is generously funded by the <a href="https://www.exeter.ac.uk/research/eicdt/">Centre for Doctoral Training in Environmental Intelligence</a> and is a component of the <a href="https://opensciencestudies.eu/">"Philosophy of Open Science for Diverse Research Environments"</a> run by Professor Sabina Leoneli. 
   </h3>
   
-  <h2 style="margin-top: 5%;">HMU if you have an open source project, academic paper, or general question</h2>
+  <h2 style="margin-top: 5%;">Drop me a message for collaborations, work or  any general questions ↓</h2>
   <h1 class="p-5 break-words" data-value={emails}>{"*%^%$^*£$%£$*%£$*%"}</h1>
 </div>

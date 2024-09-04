@@ -6,6 +6,7 @@
     <meta name="robots" content="noindex nofollow" />
     <html lang="en" />
   </svelte:head>
+  <h1>Research Software</h1>
   <Stepper stepTerm='Project'>
     <Step>
       <svelte:fragment slot="header">GIGWORK.city</svelte:fragment>
