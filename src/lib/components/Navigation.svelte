@@ -9,7 +9,8 @@
     <ul>
         <li><a href="/" on:click={drawerClose}>BIO</a></li>
         <li><a href="/cv" on:click={drawerClose}>CV</a></li>
-        <li><a href="/projects" on:click={drawerClose}>RESEARCH SOFTWARE</a></li>
         <li><a href="/writing" on:click={drawerClose}>RESEARCH ARTICLES</a></li>
+        <li><a href="/projects" on:click={drawerClose}>RESEARCH SOFTWARE</a></li>
+
     </ul>
 </nav>
