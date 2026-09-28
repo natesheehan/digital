@@ -1,192 +1,414 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import * as THREE from 'three';
+	import Bot from '$lib/components/Bot.svelte';
+	import HeroMap from '$lib/components/HeroMap.svelte';
+	import NateQuest from '$lib/components/NateQuest.svelte';
+	import Icon from '$lib/components/Icon.svelte';
+	import Cover from '$lib/components/Cover.svelte';
+	import { profile, publications, software, slug, typeLabel } from '$lib/data';
+	import { reveal, scramble } from '$lib/actions';
 
-  const emails = ["ns651@exeter.ac.uk"];
-  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  let intervals: NodeJS.Timeout[] = [];
+	const areas = [
+		{
+			file: 'OPEN_DATA.TXT',
+			title: 'Philosophy of (open) data',
+			body: 'What data are, how they travel, and what “openness” actually requires of the infrastructures that collect, standardise and share them — from SARS-CoV-2 genomes to global health research.'
+		},
+		{
+			file: 'STANDARDS.TXT',
+			title: 'Sociology of (scientific) standards',
+			body: 'How formats, metadata schemas and submission norms decide whose data count — and how they can exclude researchers whose data are sound but formatted differently.'
+		},
+		{
+			file: 'ENV_INTEL.TXT',
+			title: 'Environmental intelligence',
+			body: 'Data-intensive research on environment and health, and the open tools that support it — the field of my doctoral training at the University of Exeter.'
+		}
+	];
 
-  onMount(() => {
-    const handleMouseOver = (index: number) => (event: MouseEvent) => {
-      const h1 = event.target as HTMLHeadingElement;
-      let iteration = 0;
+	const selected = publications.slice(0, 5);
+	const newest = Math.max(...publications.map((p) => p.year));
 
-      clearInterval(intervals[index]);
-
-      intervals[index] = setInterval(() => {
-        h1.innerText = h1.innerText
-          .split("")
-          .map((letter, i) => {
-            if (i < iteration) {
-              return h1.dataset.value![i];
-            }
-            return letters[Math.floor(Math.random() * 26)];
-          })
-          .join("");
-
-        if (iteration >= h1.dataset.value!.length) {
-          clearInterval(intervals[index]);
-        }
-
-        iteration += 1 / 2;
-      }, 30);
-    };
-
-    emails.forEach((email, index) => {
-      const h1 = document.querySelector(`h1[data-value="${email}"]`);
-      intervals[index] = null;
-
-      if (h1) {
-        h1.addEventListener("mouseover", handleMouseOver(index));
-      }
-    });
-
-    // Three.js Background Setup
-    const canvas = document.querySelector('#bg') as HTMLCanvasElement;
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ canvas });
-
-    renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    camera.position.setZ(100);
-
-    // Function to create a snake-like spiral
-    function createSnakeCurve(radius, turns, offset) {
-      return new THREE.CatmullRomCurve3(
-        new Array(200).fill(0).map((_, i) => {
-          const angle = i * (Math.PI * 2 * turns) / 200;
-          const x = Math.cos(angle + offset) * radius;
-          const y = Math.sin(angle + offset) * radius;
-          const z = i * 0.5;
-          return new THREE.Vector3(x, y, z);
-        })
-      );
-    }
-
-    const snake1Curve = createSnakeCurve(10, 5, 0);
-    const snake2Curve = createSnakeCurve(10, 5, Math.PI); // Offset by PI for opposite spiral
-
-    const snake1Geometry = new THREE.TubeGeometry(snake1Curve, 200, 1, 8, false);
-    const snake2Geometry = new THREE.TubeGeometry(snake2Curve, 200, 1, 8, false);
-
-    const material1 = new THREE.MeshStandardMaterial({
-      color: 0xFF4500, // Orange-Red
-      wireframe: true,
-    });
-    const material2 = new THREE.MeshStandardMaterial({
-      color: 0x1E90FF, // DodgerBlue
-      wireframe: true,
-    });
-
-    const snake1Mesh = new THREE.Mesh(snake1Geometry, material1);
-    const snake2Mesh = new THREE.Mesh(snake2Geometry, material2);
-
-    scene.add(snake1Mesh);
-    scene.add(snake2Mesh);
-
-    const pointLight = new THREE.PointLight(0xffffff);
-    pointLight.position.set(5, 5, 5);
-
-    const ambientLight = new THREE.AmbientLight(0xffffff);
-    scene.add(pointLight, ambientLight);
-
-    const animate = () => {
-      requestAnimationFrame(animate);
-
-      // Rotate the snakes around the center
-      snake1Mesh.rotation.z += 0.01;
-      snake2Mesh.rotation.z -= 0.01;
-
-      renderer.render(scene, camera);
-    };
-
-    animate();
-
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-
-    return () => {
-      intervals.forEach((interval, index) => {
-        clearInterval(interval);
-        const h1 = document.querySelector(`h1[data-value="${emails[index]}"]`);
-        if (h1) {
-          h1.removeEventListener("mouseover", handleMouseOver(index));
-        }
-      });
-    };
-  });
+	const contactLines = [
+		{ text: 'GOT AN IDEA?', outline: false },
+		{ text: "LET'S MAKE", outline: false },
+		{ text: 'SOMETHING', outline: true },
+		{ text: 'OPEN.', outline: false }
+	];
 </script>
 
 <svelte:head>
-  <title>Bio | Nathanael Sheehan</title>
+	<title>Nathanael Sheehan</title>
 </svelte:head>
 
+<!-- ============================ HERO ============================ -->
+<section class="hero">
+	<div class="container">
+		<HeroMap />
+	</div>
+</section>
+
+<!-- ============================ GAME ============================ -->
+<section class="section" id="notebook">
+	<div class="container">
+		<div class="section-head" use:reveal>
+			<span class="section-num">$ ./natequest</span>
+			<h2 class="section-title">Get to <span class="hl">know</span> me</h2>
+		</div>
+		<div use:reveal={80}><NateQuest /></div>
+	</div>
+</section>
+
+<!-- ============================ AREAS ============================ -->
+<section class="section" id="research">
+	<div class="container">
+		<div class="section-head" use:reveal>
+			<span class="section-num">$ cat research/*.txt</span>
+			<h2 class="section-title">Core <span class="hl">areas</span></h2>
+		</div>
+
+		<ol class="areas">
+			{#each areas as a, i}
+				<li class="win" use:reveal={i * 90}>
+					<div class="winbar"><span>{a.file}</span><span class="winbtns"><i>_</i><i>□</i><i>×</i></span></div>
+					<div class="win-body area-body">
+						<span class="area-num outline">{String(i + 1).padStart(2, '0')}</span>
+						<h3>{a.title}</h3>
+						<p>{a.body}</p>
+					</div>
+				</li>
+			{/each}
+		</ol>
+		<p class="rows">3 file(s)</p>
+	</div>
+</section>
+
+<!-- ============================ OUTPUTS ============================ -->
+<section class="section" id="publications">
+	<div class="container">
+		<div class="section-head" use:reveal>
+			<span class="section-num">$ ls -t outputs | head -5</span>
+			<h2 class="section-title">Recent <span class="hl">outputs</span></h2>
+		</div>
+
+		<ul class="pubs">
+			{#each selected as p, i}
+				<li use:reveal={i * 60}>
+					<a href={p.url} class="pub">
+						<span class="pub-year">{p.year}</span>
+						<span class="pub-body">
+							<span class="pub-title">{p.title}</span>
+							<span class="pub-venue">{typeLabel(p.type)} · <em>{p.venue}</em>{p.details && p.type === 'article' ? `, ${p.details}` : ''}</span>
+						</span>
+						<span class="pub-tags">
+							{#if p.year === newest}<span class="new">NEW!</span>{/if}
+							{#if p.openAccess}<span class="tag tag-oa"><Icon name="open" /> OA</span>{/if}
+							<span class="pub-arrow">↗</span>
+						</span>
+					</a>
+				</li>
+			{/each}
+		</ul>
+		<p class="rows">5 file(s) · {publications.length - 5} more in outputs/</p>
+		<a class="text-link more" href="/writing">All {publications.length} outputs: articles, thesis, reports &amp; data →</a>
+	</div>
+</section>
+
+<!-- ============================ SOFTWARE ============================ -->
+<section class="section" id="software">
+	<div class="container">
+		<div class="section-head" use:reveal>
+			<span class="section-num">$ ls software/</span>
+			<h2 class="section-title">Open code, <span class="hl">reusable</span> data</h2>
+		</div>
+
+		<div class="sw-grid">
+			{#each software as s, i}
+				<a class="sw win" href="/projects#{slug(s.name)}" use:reveal={i * 70}>
+					<div class="winbar"><span>{s.name.toUpperCase()}.EXE</span><span class="winbtns"><i>_</i><i>□</i><i>×</i></span></div>
+					<div class="sw-cover"><Cover variant={s.cover} seed={s.name} /></div>
+					<div class="sw-body">
+						<span class="eyebrow">{s.kind}</span>
+						<h3>{s.name}</h3>
+						<p>{s.summary}</p>
+					</div>
+				</a>
+			{/each}
+		</div>
+		<p class="rows">{software.length} file(s)</p>
+	</div>
+</section>
+
+<!-- ============================ CONTACT ============================ -->
+<section class="section contact" id="contact">
+	<div class="container">
+		<div class="win guestbook">
+			<div class="winbar"><span>GUESTBOOK.HTM — please sign my guestbook!</span><span class="winbtns"><i>_</i><i>□</i><i>×</i></span></div>
+			<div class="win-body gb-body">
+				<div class="gb-bot" aria-hidden="true"><Bot delay={300} /></div>
+				<span class="section-num">$ mail {profile.email.split('@')[0]}</span>
+
+				<h2 class="kinetic" use:reveal aria-label="Got an idea? Let's make something open.">
+					{#each contactLines as line, li}
+						<span class="k-line" class:outline-line={line.outline} aria-hidden="true">
+							{#each line.text.split('') as ch, ci}
+								<span class="k-ch" style="--i:{li * 6 + ci}">{ch === ' ' ? '\u00a0' : ch}</span>
+							{/each}
+						</span>
+					{/each}
+				</h2>
+
+				<p class="contact-sub">collaborations, work, or just a question — the guestbook is an email ↓</p>
+
+				<a class="btn btn-primary email" href="mailto:{profile.email}">
+					<Icon name="mail" size={20} />
+					<span use:scramble={profile.email}>{profile.email}</span>
+				</a>
+
+				<p class="construction" aria-hidden="true"><span>this page is permanently under construction</span></p>
+			</div>
+		</div>
+	</div>
+</section>
+
 <style>
-  body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    color: #fff;
-    background-color: #121212;
-    overflow: hidden;
-  }
+	/* ============ hero ============ */
+	.hero {
+		position: relative;
+		padding: clamp(24px, 4vw, 48px) 0 clamp(40px, 6vw, 64px);
+	}
 
-  h1 {
-    font-size: 2rem;
-    margin: 1rem 0;
-    text-align: center;
-  }
+	/* ============ areas ============ */
+	.areas {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+		gap: 22px;
+	}
+	.area-body {
+		margin-top: 3px;
+		padding: 18px 20px 22px;
+		height: calc(100% - 25px);
+	}
+	.area-num {
+		display: block;
+		font-family: var(--font-display);
+		font-size: 5rem;
+		line-height: 0.8;
+	}
+	.areas h3 {
+		margin: 12px 0 12px;
+		font-size: 2.3rem;
+	}
+	.areas p {
+		margin: 0;
+		font-size: 0.86rem;
+	}
+	.areas li:hover .area-body {
+		background: var(--ink);
+		color: var(--bg);
+		text-shadow: none;
+	}
+	.areas li:hover .area-num {
+		background-image: repeating-linear-gradient(to bottom, var(--bg) 0 2px, transparent 2px 4px);
+	}
 
-  p {
-    font-size: 1.1rem;
-    line-height: 1.5;
-    margin: 1rem;
-    text-align: justify;
-    max-width: 600px;
-  }
+	/* ============ outputs ============ */
+	.pubs {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		border-top: 2px solid var(--ink);
+	}
+	.pubs li {
+		border-bottom: 1px dashed var(--ink);
+	}
+	.pub,
+	.pub:visited {
+		display: grid;
+		grid-template-columns: 56px minmax(0, 1fr);
+		gap: 8px 20px;
+		padding: 18px 8px;
+		color: var(--ink);
+		text-decoration: none;
+	}
+	.pub:hover {
+		background: var(--ink);
+		color: var(--bg);
+	}
+	.pub:hover .tag-oa {
+		background: var(--bg);
+		color: var(--ink);
+		border-color: var(--bg);
+	}
+	.pub-year {
+		font-weight: 700;
+		font-size: 0.85rem;
+		padding-top: 4px;
+	}
+	.pub-body {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+	}
+	.pub-title {
+		font-family: var(--font-display);
+		text-transform: uppercase;
+		font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+		line-height: 0.95;
+	}
+	.pub:hover .pub-title::before {
+		content: '> ';
+	}
+	.pub-venue {
+		font-size: 0.78rem;
+		opacity: 0.75;
+	}
+	.pub-tags {
+		grid-column: 2;
+		display: flex;
+		align-items: center;
+		gap: 12px;
+	}
+	.pub-arrow {
+		margin-left: auto;
+		font-size: 1.3rem;
+		line-height: 1;
+	}
+	@media (min-width: 860px) {
+		.pub {
+			grid-template-columns: 80px minmax(0, 1fr) auto;
+			align-items: start;
+		}
+		.pub-tags {
+			grid-column: 3;
+			padding-top: 4px;
+		}
+	}
+	.more {
+		margin-top: 20px;
+	}
 
-  .content {
-    padding: 20px;
-    position: relative;
-    z-index: 10;
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto;
-  }
+	/* ============ software ============ */
+	.sw-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+		gap: 18px;
+	}
+	.sw,
+	.sw:visited {
+		display: flex;
+		flex-direction: column;
+		color: var(--ink);
+		text-decoration: none;
+	}
+	.sw:hover {
+		background: var(--face);
+		color: var(--ink);
+	}
+	.sw-cover {
+		margin-top: 3px;
+		aspect-ratio: 5 / 3;
+		overflow: hidden;
+		box-shadow: inset 1px 1px var(--b-shade);
+	}
+	.sw:hover .sw-cover {
+		filter: invert(1);
+	}
+	.sw-body {
+		flex: 1;
+		padding: 12px 12px 14px;
+		background: var(--bg-raised);
+	}
+	.sw-body h3 {
+		margin: 6px 0 8px;
+		font-size: 2rem;
+	}
+	.sw-body p {
+		margin: 0;
+		font-size: 0.8rem;
+	}
 
-  img {
-    display: block;
-    margin: 0 auto 20px;
-    border-radius: 5%;
-    width: 400px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
-  }
-
-  canvas {
-    position: fixed;
-    top: 0;
-    left: 100;
-    z-index: 0;
-  }
+	/* ============ contact / guestbook ============ */
+	.gb-body {
+		position: relative;
+		margin-top: 3px;
+		padding: clamp(24px, 5vw, 56px);
+		overflow: hidden;
+	}
+	.gb-bot {
+		position: absolute;
+		right: clamp(12px, 4vw, 48px);
+		top: clamp(12px, 4vw, 40px);
+		width: clamp(70px, 10vw, 140px);
+		height: clamp(70px, 10vw, 140px);
+	}
+	.kinetic {
+		margin-top: 24px;
+		font-size: clamp(3.6rem, 12vw, 10rem);
+		line-height: 0.82;
+	}
+	.k-line {
+		display: block;
+		white-space: nowrap;
+		clip-path: inset(-0.05em -0.2em 0 -0.2em);
+	}
+	.k-ch {
+		display: inline-block;
+		transform: translateY(105%);
+	}
+	.kinetic:global(.is-visible) .k-ch {
+		animation: rise 0.5s steps(5) forwards;
+		animation-delay: calc(var(--i) * 30ms);
+	}
+	@keyframes rise {
+		to {
+			transform: none;
+		}
+	}
+	.k-line.outline-line .k-ch {
+		color: transparent;
+		background: repeating-linear-gradient(to bottom, var(--ink) 0 2px, transparent 2px 4px);
+		-webkit-background-clip: text;
+		background-clip: text;
+		text-shadow: none;
+	}
+	.k-ch:hover {
+		background: var(--ink);
+		color: var(--bg);
+		text-shadow: none;
+	}
+	.contact-sub {
+		margin-top: 32px;
+		font-family: var(--font-display);
+		font-size: clamp(1.4rem, 2.6vw, 2rem);
+	}
+	.email {
+		margin-top: 8px;
+		padding: 14px 20px;
+		font-size: clamp(0.85rem, 2.4vw, 1.2rem);
+		text-transform: none;
+		overflow-wrap: anywhere;
+	}
+	.construction {
+		margin: 40px calc(clamp(24px, 5vw, 56px) * -1) calc(clamp(24px, 5vw, 56px) * -1);
+		padding: 8px;
+		text-align: center;
+		font-family: var(--font-pixel);
+		font-size: 0.55rem;
+		line-height: 2;
+		color: #000;
+		text-shadow: none;
+		background: repeating-linear-gradient(-45deg, #ffcc00 0 14px, #111 14px 28px);
+	}
+	.construction span {
+		padding: 4px 10px;
+		background: #ffcc00;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.k-ch {
+			transform: none;
+		}
+	}
 </style>
-
-<canvas id="bg"></canvas>
-
-<div class="content">
-  <img src="me.png" alt="Profile Picture">
-<!-- 
-  <p>I dance through city skylines, tracing the contours of rooftops like a needle on vinyl, leaving behind the echoes of forgotten tunes.</p>
-  <p>I invite pigeons to join me in my quest to teach the stories that live between the cracks of the pavement.</p>
-  <p>I befriend stray cats with a purr of understanding and can silence a barking dog with a single gaze.</p>
-  <p>I survived on daydreams and starlight long before I ever touched a drop of caffeine.</p>
-  <p>I climb hills with the enthusiasm of a mountain goat and descend with the reckless abandon of a child on a sled.</p> -->
-  <h1>if you are well, all is well, and I am well too</h1>
-  <h3>I am Nathanael Sheehan (he/him) a final year doctoral candidate at the University of Exeter, where my research focuses on the "Diversity and Injustice of Open Research Environments". This research is generously funded by the <a href="https://www.exeter.ac.uk/research/eicdt/">Centre for Doctoral Training in Environmental Intelligence</a> and is a component of the <a href="https://opensciencestudies.eu/">"Philosophy of Open Science for Diverse Research Environments"</a> run by Professor Sabina Leoneli. 
-  </h3>
-  
-  <h2 style="margin-top: 5%;">Drop me a message for collaborations, work or  any general questions ↓</h2>
-  <h1 class="p-5 break-words" data-value={emails}>{"*%^%$^*£$%£$*%£$*%"}</h1>
-</div>

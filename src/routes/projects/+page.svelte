@@ -1,129 +1,167 @@
 <script lang="ts">
-    import { Stepper, Step } from '@skeletonlabs/skeleton';
-  </script>
-  <svelte:head>
-    <title>Software | Nathanael Sheehan</title>
-    <meta name="robots" content="noindex nofollow" />
-    <html lang="en" />
-  </svelte:head>
-  <h1>Research Software</h1>
-  <Stepper stepTerm='Project'>
-    <Step>
-      <svelte:fragment slot="header">GIGWORK.city</svelte:fragment>
-      <img
-        src="/FM74HVOXwAEAte_.gif"
-        style="
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-          width: 50%;
-          margin-bottom: 2%;
-        "
-        alt=""
-      />
-  
-      <p>
-        The work in the gig economy is characterised by opacity and alienation, digital platforms effectively hiding from view the intensive human labour that enables our daily instant gratifications. For platform food couriers, this hidden work is concealed behind a dot moving on and across a map, deprived of identity or history. At a time when the possibilities for social bonds and empathy with workers are often denied to us, this web project gathers courier stories from three European cities to show what lies behind the moving dot. Using graphic illustrations, GIS data and audio diaries, this interactive multimedia platform aims to problematise the discourses of flexibility, independence and entrepreneurship surrounding gig work. This platform is part of the research project Doing Gig Work, which studies the management, solidarity and resistance of platform food couriers in Manchester (UK), Cluj (Romania) and Lyon (France).
-      </p>
-      <!-- <img
-        src="jerome2.png"
-        style="
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-          width: 50%;
-        "
-        alt=""
-      /> -->
-      <p><a href="https://github.com/gigwork/Gigwork-Stories"><i>repo </i></a></p>
-      <a href="https://gigwork.city/">website</a>
-    </Step>
-    <!-- ... -->
-    <Step>
-      <svelte:fragment slot="header">     <img
-      src="129973263-5fc74ae3-ed17-4155-9a8c-7f382f7796cc.png"
-      style="
-        display: block;
-        margin-left: 0%;
-        width: 8%;
-        margin-bottom: 2%;
-        height: 10%;
-      "
-      alt=""
-    /></svelte:fragment>
-  
-      <img
-        src="128907563-4aa95b30-a98d-4fbc-9275-97e0b30dd227.gif"
-        style="
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-          width: 50%;
-          margin-top:-10%;
-        "
-        alt=""
-      />
-  
-      <p>
-        abstr provides an R interface to the A/B Street transport system simulation and network editing software. It provides functions for converting origin-destination data, combined with data on buildings representing origin and destination locations, into .json files that can be directly imported into the A/B Street city simulation.
-        See the formats page in the A/B Street documentation for details of the schema that the package outputs.
-      </p>
- 
-      <p><a href="https://github.com/a-b-street/abstr"><i>repo </i></a></p>
-      <a href="https://a-b-street.github.io/abstr/">website</a>
-    </Step>
-    <Step>
-      <svelte:fragment slot="header"> River Sentiment Dashboard</svelte:fragment>
-  
-  
-      <p>
-        People talk about rivers online: from complaints about pollution to celebrations of wildlife, rivers provoke passionate social media comments. When people express their feelings about rivers on Twitter, we get a glimpse of how nature affects human wellbeing. The River Sentiment Dashboard displays social media sentiment alongside data about the ecological status of more than 450 rivers in the Thames basin in England. This prototype has been developed by Oxford University and Thames21.</p>
- 
-      <p><a href="https://github.com/Digital-Water-Publics/Thames21-Socio-Ecological-Dashboard"><i>repo </i></a></p>
-      <a href="https://thames21ox.web.app/">website</a>
-    </Step>
-    <Step>
-      <svelte:fragment slot="header">eaCatcher</svelte:fragment>
+	import Icon from '$lib/components/Icon.svelte';
+	import Cover from '$lib/components/Cover.svelte';
+	import Bot from '$lib/components/Bot.svelte';
+	import { software, profile, slug } from '$lib/data';
+	import { reveal } from '$lib/actions';
+</script>
 
-  
-      <p>
-        The eaCatcheR R package provides an interface to data from the environment.data.gov.uk catchment planner, which is a resource for various spatial and ecological datasets on waterbodies in England. The package contains three main functions: get_wb_rnag(), get_wb_classification(), and get_wb_sf(), each of which allows you to access data based on geography type (e.g. RBD, MC, OC) and the name of the geography you wish to search.
-      </p>
- 
-      <p><a href="https://github.com/natesheehan/eaCatcheR"><i>repo </i></a></p>
-      <a href="https://natesheehan.github.io/eaCatcheR/">website</a>
-    </Step>
-    <Step>
-      <svelte:fragment slot="header">dimaqdata</svelte:fragment>
+<svelte:head>
+	<title>Research software · Nathanael Sheehan</title>
+</svelte:head>
 
-  
-      <p>
-        This package contains ten datasets provided by the members of the Data Integration Task Force, a multi-disciplinary group of experts established as part of the recommendations from the first meeting of the WHO Global Platform for Air Quality in Geneva, January 2014.
+<div class="container">
+	<header class="page-head">
+		<p class="eyebrow cmd" use:reveal>$ ls -l ~/software</p>
+		<h1 use:reveal={60}>Open code<br />for <span class="hl">open</span> questions</h1>
+		<p class="lede" use:reveal={120}>
+			R packages, data packages and interactive platforms built alongside my research. The source
+			for each is on <a href={profile.links.github}>GitHub</a> — issues and pull requests welcome.
+		</p>
+	</header>
 
-        who_world_map: sf WHO world map shapefile
-        
-        ground_monitor: sf Yearly global ground monitor station
-        
-        population_weighted_concentrations: df Yearly population weighted pm2.5 concentrations by country or WHO region
-        
-        global_exceed: df Yearly exceedances by country at 10,15,20,25 spatial scale
-        
-        pred_2011: sf 2011 Global Predictions spatial resolution (0.1° × 0.1°)
-        
-        pred_2012: sf 2012 Global Predictions spatial resolution (0.1° × 0.1°)
-        
-        pred_2013: sf 2013 Global Predictions spatial resolution (0.1° × 0.1°)
-        
-        pred_2014: sf 2014 Global Predictions spatial resolution (0.1° × 0.1°)
-        
-        pred_2015: sf 2015 Global Predictions spatial resolution (0.1° × 0.1°)
-        
-        pred_2016: sf 2016 Global Predictions spatial resolution (0.1° × 0.1°)
-       </p>
- 
-      <p><a href="https://github.com/environmental-intelligence-exeter/dimaqdata"><i>repo </i></a></p>
-      <a href="https://environmental-intelligence-exeter.github.io/dimaqdata//">website</a>
-    </Step>
-    <!-- ... -->
-  </Stepper>
-  
+	<div class="projects">
+		{#each software as s, i}
+			<article class="project" class:flip={i % 2 === 1} id={slug(s.name)} use:reveal>
+				<div class="media win">
+					<div class="winbar"><span>{s.name.toUpperCase()}.{s.media?.type === 'video' ? 'AVI' : 'BMP'}</span><span class="winbtns" aria-hidden="true"><i>_</i><i>□</i><i>×</i></span></div>
+					<div class="media-inner">
+					{#if s.media?.type === 'video'}
+						<video src={s.media.src} autoplay muted loop playsinline aria-label={s.media.alt} />
+					{:else if s.media?.type === 'image'}
+						<img src={s.media.src} alt={s.media.alt} loading="lazy" decoding="async" />
+					{:else}
+						<Cover variant={s.cover} seed={s.name} />
+					{/if}
+					<span class="index">{String(i + 1).padStart(2, '0')} / {String(software.length).padStart(2, '0')}</span>
+					</div>
+				</div>
+
+				<div class="presenter" aria-hidden="true"><Bot delay={300} /></div>
+				<div class="info">
+					<span class="eyebrow">{s.kind}</span>
+					<h2>{s.name}</h2>
+					<p class="summary">{s.summary}</p>
+					<p class="desc">{s.description}</p>
+					<ul class="tags">
+						{#each s.tags as t}<li class="tag">{t}</li>{/each}
+					</ul>
+					<div class="links">
+						<a class="btn btn-primary" href={s.site}>Visit <Icon name="external" /></a>
+						<a class="btn" href={s.repo}><Icon name="github" /> Source</a>
+					</div>
+				</div>
+			</article>
+		{/each}
+	</div>
+</div>
+
+<style>
+	.projects {
+		display: grid;
+		gap: clamp(56px, 9vw, 112px);
+		padding: 24px 0 clamp(80px, 12vw, 140px);
+	}
+	.project {
+		display: grid;
+		gap: 28px;
+		grid-template-columns: minmax(0, 1fr);
+		align-items: center;
+		scroll-margin-top: 96px;
+	}
+	@media (min-width: 900px) {
+		.project {
+			grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+			gap: 56px;
+		}
+		.project.flip .media {
+			order: 2;
+		}
+	}
+	.media {
+		position: relative;
+	}
+	.media-inner {
+		position: relative;
+		margin-top: 3px;
+		aspect-ratio: 4 / 3;
+		overflow: hidden;
+		background: var(--bg-raised);
+		box-shadow: inset 1px 1px var(--b-shade);
+	}
+	.media video,
+	.media img,
+	.media :global(svg) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		filter: grayscale(1) contrast(1.2);
+		transition: transform 1.4s var(--ease-out);
+	}
+
+	.project {
+		position: relative;
+	}
+	:global(:root:not([data-theme='light'])) .media video,
+	:global(:root:not([data-theme='light'])) .media img {
+		filter: grayscale(1) contrast(1.3) sepia(1) hue-rotate(75deg) saturate(3) brightness(0.9);
+	}
+	.presenter {
+		display: none;
+	}
+	@media (min-width: 900px) {
+		.presenter {
+			display: block;
+			position: absolute;
+			left: -110px;
+			bottom: -10px;
+			width: 110px;
+			height: 110px;
+			z-index: 2;
+		}
+		.project.flip .presenter {
+			left: auto;
+			right: calc(45% - 150px);
+			transform: scaleX(-1);
+		}
+	}
+	.index {
+		position: absolute;
+		left: 12px;
+		bottom: 12px;
+		padding: 3px 8px;
+		background: var(--ink);
+		color: var(--bg);
+		text-shadow: none;
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+	}
+	h2 {
+		margin: 8px 0 12px;
+		font-size: clamp(2.6rem, 5vw, 3.8rem);
+	}
+	.summary {
+		font-weight: 700;
+		font-size: 1.05rem;
+		line-height: 1.5;
+		color: var(--ink);
+	}
+	.desc {
+		font-size: 0.95rem;
+		color: var(--ink-soft);
+	}
+	.tags {
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px;
+		margin: 20px 0 0;
+		padding: 0;
+	}
+	.links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		margin-top: 24px;
+	}
+</style>
