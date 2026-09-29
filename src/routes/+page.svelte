@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Bot from '$lib/components/Bot.svelte';
 	import HeroMap from '$lib/components/HeroMap.svelte';
-	import NateQuest from '$lib/components/NateQuest.svelte';
+	import Workstation from '$lib/components/Workstation.svelte';
 	import Icon from '$lib/components/Icon.svelte';
 	import Cover from '$lib/components/Cover.svelte';
 	import { profile, publications, software, slug, typeLabel } from '$lib/data';
@@ -47,14 +47,14 @@
 	</div>
 </section>
 
-<!-- ============================ GAME ============================ -->
+<!-- ============================ ABOUT ============================ -->
 <section class="section" id="notebook">
 	<div class="container">
 		<div class="section-head" use:reveal>
-			<span class="section-num">$ ./natequest</span>
+			<span class="section-num">$ boot nate-pc</span>
 			<h2 class="section-title">Get to <span class="hl">know</span> me</h2>
 		</div>
-		<div use:reveal={80}><NateQuest /></div>
+		<div use:reveal={80}><Workstation /></div>
 	</div>
 </section>
 
