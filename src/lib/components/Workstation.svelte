@@ -7,18 +7,19 @@
 	 * "get to know me" records on its CRT. Keys light up as they're "pressed"; the drive LED
 	 * flickers while output prints. Pick a file on the right to jump straight to a record.
 	 */
-	type Rec = { file: string; cmd: string; out: string[] };
+	type Out = string | { text: string; href: string };
+	type Rec = { file: string; cmd: string; out: Out[] };
 
 	const recs: Rec[] = [
 		{
 			file: 'ID-CARD.TXT',
 			cmd: 'whoami',
-			out: ['NAME .... Nathanael Sheehan (he/him)', 'BASED ... Munich <- via Exeter', 'JOB ..... postdoc @ TUM', `ORCID ... ${profile.orcid}`]
+			out: ['NAME .... Nathanael Sheehan (he/him)', 'FIELD ... philosophy & sociology of science', `MAIL .... ${profile.email}`, `ORCID ... ${profile.orcid}`]
 		},
 		{
 			file: 'PATH.LOG',
-			cmd: 'cat how-i-got-here.log',
-			out: ['1. BSc computer science', '2. MSc geography', '3. PhD environmental intelligence', '4. philosophy & sociology of science  <- you are here']
+			cmd: 'cat path.log',
+			out: ['1. BSc computer science', '2. MSc geography', '3. PhD environmental intelligence', '4. philosophy & sociology of science']
 		},
 		{
 			file: 'QUESTIONS.MD',
@@ -28,25 +29,29 @@
 		{
 			file: 'TOOLBOX.SH',
 			cmd: './toolbox.sh --list',
-			out: ['> ethnographic observation', '> semi-structured interviews', '> quantitative modelling', '> R + Python, in the open']
+			out: ['> ethnographic observation', '> semi-structured interviews', '> quantitative modelling', '> free and open source software development']
 		},
 		{
-			file: 'SIDEQUEST.LOG',
-			cmd: 'tail side-quests.log',
-			out: ['[x] reading group: epistemic diversity', '[x] Research Data Alliance: member', '[x] built gigwork.city', '[x] R packages shipped: 3']
-		},
-		{
-			file: 'WINDOW.TXT',
-			cmd: 'cat window.txt',
-			out: ['Munich, out the window. A note on the glass:', '"if you are well, all is well,', ' and I am well too"']
+			file: 'PROJECTS.LOG',
+			cmd: 'tail projects.log',
+			out: [
+				{ text: '[x] Concept Cartography ↗', href: 'https://cc-nine-dusky.vercel.app/' },
+				{ text: '[x] Epistemic Diversity reading group ↗', href: 'https://epistemicdiversity.xyz/' },
+				{ text: '[x] The Protocollege ↗', href: 'https://proto.college/' },
+				{ text: '[x] RDA: research data management ethics ↗', href: 'https://www.rd-alliance.org/birds-of-a-feather/research-data-management-ethics/' },
+				{ text: '[x] gigwork.city ↗', href: 'https://gigwork.city/' }
+			]
 		}
 	];
+
+	const outText = (o: Out) => (typeof o === 'string' ? o : o.text);
+	const outHref = (o: Out) => (typeof o === 'string' ? undefined : o.href);
 
 	const boot = ['NATE-BIOS v2.6  (c) SHEEHAN SOFT', 'MEMORY TEST ... 640K OK', 'LOADING OPEN-DATA.SYS ... OK', ''];
 	const rows = ['QWERTYUIOP', 'ASDFGHJKL', 'ZXCVBNM'];
 	const MAX_LINES = 14;
 
-	type Line = { text: string; kind: 'cmd' | 'out' | 'sys' };
+	type Line = { text: string; kind: 'cmd' | 'out' | 'sys'; href?: string };
 	let lines: Line[] = [];
 	let typing = '';
 	let pressed = '';
@@ -74,7 +79,7 @@
 		const r = recs[i];
 		if (reduce) {
 			push({ text: r.cmd, kind: 'cmd' });
-			r.out.forEach((text) => push({ text, kind: 'out' }));
+			r.out.forEach((o) => push({ text: outText(o), href: outHref(o), kind: 'out' }));
 			read = new Set(read).add(i);
 			return;
 		}
@@ -90,10 +95,10 @@
 		push({ text: typing, kind: 'cmd' });
 		typing = '';
 		busy = true;
-		for (const text of r.out) {
+		for (const o of r.out) {
 			await wait(110);
 			if (token !== run) return;
-			push({ text, kind: 'out' });
+			push({ text: outText(o), href: outHref(o), kind: 'out' });
 		}
 		busy = false;
 		read = new Set(read).add(i);
@@ -119,7 +124,7 @@
 
 	function finish() {
 		push({ text: '', kind: 'sys' });
-		push({ text: `${recs.length}/${recs.length} records read. mail ${profile.email.split('@')[0]} to say hi.`, kind: 'sys' });
+		push({ text: `${recs.length}/${recs.length} records read. contact: ${profile.email}`, kind: 'sys' });
 		current = -1;
 	}
 
@@ -163,7 +168,7 @@
 					<div class="screen" class:on>
 						<div class="glass">
 							{#each lines as l}
-								<p class={l.kind}>{#if l.kind === 'cmd'}<span class="prompt">C:\&gt;</span> {/if}{l.text || '\u00a0'}</p>
+								<p class={l.kind}>{#if l.kind === 'cmd'}<span class="prompt">C:\&gt;</span> {/if}{#if l.href}<a href={l.href} target="_blank" rel="noopener" tabindex="-1">{l.text}</a>{:else}{l.text || '\u00a0'}{/if}</p>
 							{/each}
 							{#if on}<p class="cmd"><span class="prompt">C:\&gt;</span> {typing}<span class="cursor">█</span></p>{/if}
 						</div>
@@ -219,12 +224,13 @@
 
 <details class="plain">
 	<summary>view as plain text (ABOUT.TXT)</summary>
-	<pre>{recs.map((r) => `== ${r.file} ==\n${r.out.join('\n')}`).join('\n\n')}</pre>
+	{#each recs as r}
+		<pre>== {r.file} =={'\n'}{#each r.out as o}{#if outHref(o)}<a href={outHref(o)}>{outText(o)}</a>{:else}{outText(o)}{/if}{'\n'}{/each}</pre>
+	{/each}
 </details>
 
 <style>
 	.ws-body {
-		margin-top: 3px;
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
 		gap: 24px;
@@ -241,7 +247,7 @@
 	.rig {
 		--case: var(--face);
 		--scr-bg: #020904;
-		--scr-ink: #3dff8b;
+		--scr-ink: #b8f2c8;
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) auto;
 		grid-template-areas: 'mon tower' 'kbd tower';
@@ -287,7 +293,7 @@
 		font-family: var(--font-display);
 		font-size: clamp(0.95rem, 2.1vw, 1.25rem);
 		line-height: 1.12;
-		text-shadow: 0 0 4px rgb(61 255 139 / 0.6), 0 0 12px rgb(61 255 139 / 0.25);
+		text-shadow: 0 0 4px rgb(184 242 200 / 0.6), 0 0 12px rgb(184 242 200 / 0.25);
 		transform: scale(1, 0.004);
 		filter: brightness(3);
 		opacity: 0;
@@ -308,7 +314,7 @@
 		background: repeating-linear-gradient(to bottom, rgb(0 0 0 / 0.28) 0 1px, transparent 1px 3px);
 	}
 	.screen.on::after {
-		background: linear-gradient(to bottom, transparent, rgb(61 255 139 / 0.07), transparent);
+		background: linear-gradient(to bottom, transparent, rgb(184 242 200 / 0.07), transparent);
 		height: 30%;
 		animation: roll 6s linear infinite;
 	}
@@ -323,6 +329,17 @@
 	.glass .out {
 		padding-left: 1ch;
 	}
+	.glass a {
+		position: relative;
+		z-index: 2;
+		color: inherit;
+		text-decoration-color: currentColor;
+	}
+	.glass a:hover {
+		color: var(--scr-bg);
+		background: var(--scr-ink);
+		text-decoration: none;
+	}
 	.prompt {
 		opacity: 0.75;
 	}
@@ -336,7 +353,7 @@
 		gap: 10px;
 		margin-top: 8px;
 		font-family: var(--font-pixel);
-		font-size: 0.5rem;
+		font-size: 0.6rem;
 		color: var(--muted);
 		text-shadow: none;
 	}
@@ -378,8 +395,8 @@
 		transition: background 0.2s;
 	}
 	.led.lit {
-		background: #3dff8b;
-		box-shadow: 0 0 6px #3dff8b;
+		background: #b8f2c8;
+		box-shadow: 0 0 6px #b8f2c8;
 	}
 	.led.hdd {
 		background: #3a2a00;
@@ -439,7 +456,7 @@
 		align-self: flex-start;
 		padding: 2px 4px;
 		font-family: var(--font-pixel);
-		font-size: 0.42rem;
+		font-size: 0.55rem;
 		color: var(--accent);
 		text-shadow: none;
 		box-shadow: inset 1px 1px var(--b-shade), inset -1px -1px var(--b-light);
@@ -611,8 +628,8 @@
 	}
 	@keyframes hdd {
 		0% {
-			background: #ffb000;
-			box-shadow: 0 0 6px #ffb000;
+			background: #ffb547;
+			box-shadow: 0 0 6px #ffb547;
 		}
 		100% {
 			background: #3a2a00;

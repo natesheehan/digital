@@ -10,7 +10,7 @@
 	let canvas: HTMLCanvasElement;
 
 	const text = [
-		`${profile.name} :: ${profile.role} :: ${profile.chair} :: ${profile.institution}`,
+		`${profile.name} :: ${profile.about} :: ${profile.email}`,
 		...publications.map((p) => `${p.year} ${p.title} // ${p.venue}${p.doi ? ' doi:' + p.doi : ''}`),
 		...software.map((s) => `${s.name}: ${s.summary}`)
 	].join('  ::  ');
@@ -22,7 +22,7 @@
 		const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 		const ROW = 18;
-		const FONT = '11px "Space Mono", ui-monospace, monospace';
+		const FONT = '11px "IBM Plex Mono", ui-monospace, monospace';
 		const BLOCK_GAP = 36;
 		const hex = (n: number, w: number) => n.toString(16).padStart(w, '0');
 
@@ -131,7 +131,7 @@
 			ctx!.textBaseline = 'middle';
 			const x0 = originX();
 			const blocks = Math.max(1, Math.ceil((W - x0) / BW));
-			const base = paper ? 0.07 : 0.075;
+			const base = paper ? 0.05 : 0.035;
 			const selRow = ptr.y >= 0 ? Math.floor((ptr.y + scroll) / ROW) : -1;
 			const selB = ptr.x >= 0 ? Math.floor((ptr.x - x0) / BW) : -1;
 
@@ -140,7 +140,7 @@
 				for (let b = 0; b < blocks; b++) {
 					const x = x0 + b * BW;
 					const sel = r === selRow && b === selB;
-					ctx!.fillStyle = c(sel ? 0.32 : base);
+					ctx!.fillStyle = c(sel ? 0.16 : base);
 					ctx!.fillText(rowStrings(r, b), x, y);
 				}
 			}
@@ -150,7 +150,7 @@
 				const y = m.row * ROW - scroll + ROW / 2;
 				const x = x0 + m.b * BW + hexCol(m.col) * cw;
 				const k = Math.max(0, (m.until - now) / 700);
-				ctx!.fillStyle = c(0.12 + 0.3 * k);
+				ctx!.fillStyle = c(0.04 + 0.12 * k);
 				ctx!.fillRect(x - 1, y - ROW / 2 + 3, cw * 2 + 2, ROW - 6);
 			}
 
@@ -162,11 +162,11 @@
 					const col = Math.max(0, Math.min(15, rel < 24 ? Math.floor(rel / 3) : Math.floor((rel - 1) / 3)));
 					const y = selRow * ROW - scroll;
 					if (reduce || Math.floor(now / 530) % 2 === 0) {
-						ctx!.fillStyle = c(0.55);
+						ctx!.fillStyle = c(0.3);
 						ctx!.fillRect(x + hexCol(col) * cw - 1, y + 3, cw * 2 + 2, ROW - 6);
 						ctx!.fillRect(x + (60 + col) * cw, y + 3, cw, ROW - 6);
 					}
-					ctx!.fillStyle = c(0.5);
+					ctx!.fillStyle = c(0.3);
 					ctx!.fillText(`← 0x${hex(byteAt(selRow, selB, col), 2)} @ ${hex(selRow * 16 + col + selB * 0x10000, 8)}`, x + 78 * cw, y + ROW / 2);
 				}
 			}
@@ -181,7 +181,7 @@
 				dirty = true;
 			}
 			// rewrite a random visible byte every so often
-			if (now - lastMut > 140) {
+			if (now - lastMut > 420) {
 				lastMut = now;
 				muts = muts.filter((m) => m.until > now);
 				const x0 = originX();

@@ -245,16 +245,17 @@
 		align-items: center;
 		gap: 8px;
 		padding: 6px 14px;
-		border: 2px solid var(--ink);
-		background: var(--bg);
-		color: var(--ink-soft);
-		font: 500 0.85rem var(--font-mono);
+		border: 1px solid var(--line-soft);
+		background: transparent;
+		color: var(--muted);
+		font: 400 0.76rem var(--font-mono);
+		letter-spacing: 0.05em;
 		cursor: pointer;
 		transition: all 0.3s var(--ease-out);
 	}
 	.chip:hover {
-		border-color: var(--ink);
-		color: var(--ink);
+		border-color: var(--accent);
+		color: var(--accent);
 	}
 	.chip.on {
 		background: var(--ink);

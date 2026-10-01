@@ -1,26 +1,24 @@
 export const profile = {
 	name: 'Nathanael Sheehan',
-	role: 'Postdoctoral Researcher',
-	chair: 'Chair of Philosophy and History of Science and Technology',
-	institution: 'Technical University of Munich',
-	department: 'Department of Science, Technology and Society',
-	email: 'ns651@exeter.ac.uk',
+	about: 'Philosophy of (open) data · sociology of scientific standards · free and open source software',
+	email: 'nps19@proton.me',
 	orcid: '0000-0002-2779-0976',
 	links: {
 		github: 'https://github.com/natesheehan',
 		orcid: 'https://orcid.org/0000-0002-2779-0976',
-		tum: 'https://www.sts.sot.tum.de/en/sts/people/researchers/nathanael-sheehan/',
-		twitter: 'https://twitter.com/thanaelsheehan',
+		gitlab: 'https://gitlab.com/natesheehan',
+		bluesky: 'https://bsky.app/profile/nathanaelsheehan.bsky.social',
 		cv: 'https://natesheehan.github.io/cv/CV.pdf',
 		cvSource: 'https://github.com/natesheehan/cv',
 		source: 'https://github.com/natesheehan/digital'
 	}
 };
 
-export type OutputType = 'article' | 'thesis' | 'report' | 'data' | 'event';
+export type OutputType = 'article' | 'essay' | 'thesis' | 'report' | 'data' | 'event';
 
 export const outputTypes: { id: OutputType; label: string; plural: string }[] = [
 	{ id: 'article', label: 'Journal article', plural: 'Articles' },
+	{ id: 'essay', label: 'Essay', plural: 'Essays' },
 	{ id: 'thesis', label: 'PhD thesis', plural: 'Thesis' },
 	{ id: 'report', label: 'Policy report', plural: 'Reports' },
 	{ id: 'data', label: 'Data & code', plural: 'Data & code' },
@@ -47,6 +45,19 @@ export type Publication = {
 /** Ordered newest first. Sources: ORCID, Crossref and Zenodo (September 2026). */
 export const publications: Publication[] = [
 	{
+		type: 'essay',
+		year: 2026,
+		title: 'Torn between screens and streams',
+		authors: ['Sheehan, N.'],
+		venue: 'Unhoming Pedagogies',
+		details: 'Issue 4: AI, Ethics and Education',
+		url: 'https://www.unhomingpedagogies.com/submissions/torn-between-screens-and-streams',
+		openAccess: true,
+		linkLabel: 'Read the essay',
+		abstract:
+			'Unhoming Pedagogies — Issue 4: AI, Ethics and Education.'
+	},
+	{
 		type: 'article',
 		year: 2026,
 		title: 'The Sequence and the Standard: An Account of Participatory Informational Format Exclusion (PIFE)',
@@ -69,7 +80,7 @@ export const publications: Publication[] = [
 		url: 'https://doi.org/10.5281/zenodo.21509938',
 		linkLabel: 'Thesis code on Zenodo',
 		abstract:
-			'Doctoral thesis funded by the Centre for Doctoral Training in Environmental Intelligence and part of the project “A Philosophy of Open Science for Diverse Research Environments” (PHIL_OS). The software scripts used in the thesis are openly archived on Zenodo (DOI 10.5281/zenodo.21509938, CC BY 4.0).'
+			'My PhD thesis.'
 	},
 	{
 		type: 'article',
@@ -246,6 +257,39 @@ export type Software = {
 };
 
 export const software: Software[] = [
+	{
+		name: 'Concept Cartography',
+		kind: 'Web app',
+		summary: 'Collaborative concept maps for classrooms and research groups.',
+		description:
+			'A free and open source tool for defining ideas precisely, naming how they relate and arguing about the connections together. Concepts carry shared definitions, links between them are typed (such as “part of” or “depends on”), and every link has its own discussion thread.',
+		tags: ['Web', 'Education', 'Collaboration'],
+		repo: 'https://github.com/natesheehan/CC',
+		site: 'https://cc-nine-dusky.vercel.app/',
+		cover: 'grid'
+	},
+	{
+		name: 'Storie di Insetti',
+		kind: 'Participatory archive',
+		summary: 'Stories, sounds and images about cicadas and fireflies, contributed by the public.',
+		description:
+			'A participatory storytelling platform made with PianetaLab. Contributors pick a cicada or a firefly, choose to share an audio recording, a written story or an image, and review their submission before it joins the archive: cicadas for exoskeletons and emergence, fireflies for signals, sparkles and summer nights.',
+		tags: ['Web', 'Citizen science', 'Storytelling'],
+		repo: 'https://github.com/natesheehan/pianeta-lab-storia-public',
+		site: 'https://pianeta-lab-storia.vercel.app/',
+		cover: 'dots'
+	},
+	{
+		name: 'RMU₂',
+		kind: 'Workshop website',
+		summary: 'Responsible Modelling Under Uncertainty: a two-day workshop in Exeter and online.',
+		description:
+			'The site for Responsible Modelling Under Uncertainty (23–24 September 2026, Exeter and online), a workshop on how to build and communicate models responsibly when uncertainty cannot be eliminated, only framed and interpreted — and how to make it visible, usable and open to challenge. Talks, panels and hands-on exercises with speakers including Erica Thompson, Andy Stirling, Andrea Saltelli and David Spiegelhalter.',
+		tags: ['Web', 'Modelling', 'Events'],
+		repo: 'https://gitlab.com/natesheehan/responsible-modelling-under-uncertainty',
+		site: 'https://rmu2.org/',
+		cover: 'river'
+	},
 	{
 		name: 'GIGWORK.city',
 		kind: 'Interactive platform',

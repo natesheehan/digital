@@ -2,26 +2,13 @@
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import Icon from './Icon.svelte';
-	import Bot from './Bot.svelte';
-	import { publications, software } from '$lib/data';
 
 	const nav = [
-		{ href: '/', label: 'HOME.HTM' },
-		{ href: '/writing', label: 'OUTPUTS' },
-		{ href: '/projects', label: 'SOFTWARE' },
-		{ href: '/cv', label: 'CV.PDF' }
+		{ href: '/', label: 'home' },
+		{ href: '/writing', label: 'outputs' },
+		{ href: '/projects', label: 'software' },
+		{ href: '/cv', label: 'cv' }
 	];
-
-	const latest = publications[0];
-	const ticker = [
-		`WELCOME TO NATE'S HOMEPAGE ON THE INFORMATION SUPERHIGHWAY`,
-		`NEW! "${latest.title.toUpperCase()}" (${latest.year})`,
-		`${publications.filter((p) => p.openAccess).length}/${publications.length} OUTPUTS OPEN ACCESS`,
-		`${software.length} OPEN-SOURCE PROJECTS ON GITHUB`,
-		`NOW 100% FREE OF PAYWALLS`,
-		`PLAY NATE QUEST BELOW`,
-		`SIGN MY GUESTBOOK (IT'S AN EMAIL)`
-	].join('   ★   ');
 
 	let open = false;
 	let dark = true;
@@ -31,6 +18,7 @@
 
 	$: path = $page.url.pathname;
 	$: path, (open = false);
+	$: cwd = path === '/' ? '~' : `~${path.replace(/\/$/, '')}`;
 
 	function isActive(href: string, current: string) {
 		return href === '/' ? current === '/' : current.startsWith(href);
@@ -67,12 +55,10 @@
 <svelte:window on:scroll|passive={onScroll} on:resize={onScroll} />
 
 <header class:scrolled class:open>
-	<div class="taskbar bevel">
-		<a href="/" class="start" aria-label="Nathanael Sheehan, home">
-			<span class="buddy" aria-hidden="true"><Bot instant /></span>
-			<span class="name">N.SHEEHAN<span class="ext">.EXE</span></span>
+	<div class="bar container">
+		<a href="/" class="prompt" aria-label="Nathanael Sheehan, home">
+			<span class="user">nsheehan</span><span class="cwd">:{cwd}</span><span class="sigil">$</span><span class="caret" aria-hidden="true" />
 		</a>
-		<span class="sep" aria-hidden="true" />
 
 		<nav aria-label="Primary">
 			<ul>
@@ -94,18 +80,11 @@
 		<div class="tray">
 			<button class="tray-btn" on:click={toggleTheme} aria-label={dark ? 'Switch to printout theme' : 'Switch to CRT theme'}>
 				<Icon name={dark ? 'sun' : 'moon'} size={14} />
-				<span class="mode">{dark ? 'CRT' : 'PRN'}</span>
 			</button>
-			<span class="clock" title="Munich time">{clock}</span>
+			<span class="clock" title="Munich time">MUC {clock}</span>
 			<button class="tray-btn menu-btn" on:click={() => (open = !open)} aria-expanded={open} aria-label="Menu">
 				<Icon name={open ? 'close' : 'menu'} size={16} />
 			</button>
-		</div>
-	</div>
-
-	<div class="marquee" aria-hidden="true">
-		<div class="track">
-			<span>{ticker}   ★   </span><span>{ticker}   ★   </span>
 		</div>
 	</div>
 	<div class="progress" style="transform: scaleX({progress})" />
@@ -116,59 +95,57 @@
 		position: sticky;
 		top: 0;
 		z-index: 50;
-		background: var(--bg);
-		text-shadow: none;
+		background: color-mix(in srgb, var(--bg) 82%, transparent);
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+		border-bottom: 1px solid transparent;
+		transition: border-color 0.2s;
 	}
-	.taskbar {
+	header.scrolled {
+		border-bottom-color: var(--line-soft);
+	}
+	.bar {
 		display: flex;
 		align-items: center;
-		gap: 4px;
-		height: 40px;
-		padding: 4px 4px;
+		gap: 24px;
+		height: 56px;
 	}
-	.start,
-	.start:visited {
+	.prompt,
+	.prompt:visited {
 		display: flex;
 		align-items: center;
-		gap: 6px;
-		height: 30px;
-		padding: 0 10px 0 6px;
+		font-size: 0.82rem;
+		color: var(--ink);
 		text-decoration: none;
-		color: var(--ink);
-		font-family: var(--font-mono);
-		font-weight: 700;
-		font-size: 0.8rem;
-		background: var(--face);
-		box-shadow: inset -1px -1px var(--b-dark), inset 1px 1px var(--b-light), inset -2px -2px var(--b-shade),
-			inset 2px 2px var(--b-soft);
+		white-space: nowrap;
 	}
-	:global(:root[data-theme='light']) .start {
-		color: #000;
-	}
-	.start:hover {
-		background: var(--face);
+	.prompt:hover {
 		color: var(--ink);
 	}
-	:global(:root[data-theme='light']) .start:hover {
-		color: #000;
+	.cwd {
+		color: var(--muted);
 	}
-	.start:active {
-		box-shadow: inset -1px -1px var(--b-light), inset 1px 1px var(--b-dark), inset -2px -2px var(--b-soft),
-			inset 2px 2px var(--b-shade);
+	.sigil {
+		margin-left: 0.15em;
+		color: var(--accent);
 	}
-	.buddy {
-		width: 24px;
-		height: 24px;
+	.caret {
+		display: inline-block;
+		width: 0.55em;
+		height: 1.05em;
+		margin-left: 0.45em;
+		background: var(--ink);
+		opacity: 0;
 	}
-	.ext {
-		font-weight: 400;
-		opacity: 0.7;
+	.prompt:hover .caret,
+	.prompt:focus-visible .caret {
+		opacity: 1;
+		animation: blink 1.1s steps(1) infinite;
 	}
-	.sep {
-		width: 2px;
-		height: 28px;
-		margin: 0 4px;
-		box-shadow: inset 1px 0 var(--b-shade), inset -1px 0 var(--b-light);
+	@keyframes blink {
+		50% {
+			opacity: 0;
+		}
 	}
 
 	nav {
@@ -177,6 +154,7 @@
 	}
 	nav ul {
 		display: flex;
+		justify-content: flex-end;
 		gap: 4px;
 		list-style: none;
 		margin: 0;
@@ -187,145 +165,112 @@
 		display: flex;
 		align-items: center;
 		height: 30px;
-		min-width: 110px;
-		padding: 0 12px;
-		font-family: var(--font-mono);
-		font-size: 0.76rem;
-		font-weight: 700;
+		padding: 0 10px;
+		font-size: 0.8rem;
 		text-decoration: none;
-		color: var(--ink);
-		background: var(--face);
-		box-shadow: inset -1px -1px var(--b-dark), inset 1px 1px var(--b-light), inset -2px -2px var(--b-shade),
-			inset 2px 2px var(--b-soft);
+		color: var(--muted);
 	}
-	:global(:root[data-theme='light']) .task {
-		color: #000;
+	.task::before {
+		content: '/';
+		margin-right: 1px;
+		opacity: 0.5;
 	}
 	.task:hover {
-		background: var(--face);
 		color: var(--ink);
-		outline: 1px dotted currentColor;
-		outline-offset: -5px;
 	}
-	:global(:root[data-theme='light']) .task:hover {
-		color: #000;
-	}
-	/* the active window's task button is pressed in, with the checkerboard fill */
 	.task.active {
-		box-shadow: inset -1px -1px var(--b-light), inset 1px 1px var(--b-dark), inset -2px -2px var(--b-soft),
-			inset 2px 2px var(--b-shade);
-		background: repeating-conic-gradient(var(--face) 0 25%, var(--b-soft) 0 50%) 0 0 / 2px 2px;
+		color: var(--ink);
 	}
-	:global(:root:not([data-theme='light'])) .task.active {
-		background: var(--line-soft);
+	.task.active::before {
+		content: '>';
+		opacity: 1;
+		color: var(--accent);
 	}
 
 	.tray {
-		margin-left: auto;
 		display: flex;
 		align-items: center;
-		gap: 6px;
-		height: 30px;
-		padding: 0 6px;
-		box-shadow: inset 1px 1px var(--b-shade), inset -1px -1px var(--b-light);
+		gap: 14px;
+		padding-left: 18px;
+		border-left: 1px solid var(--line-soft);
+		height: 20px;
 	}
 	.tray-btn {
 		display: inline-flex;
 		align-items: center;
-		gap: 4px;
-		height: 22px;
-		padding: 0 6px;
+		justify-content: center;
+		width: 26px;
+		height: 26px;
+		padding: 0;
 		border: 0;
 		background: transparent;
-		color: var(--ink);
-		font: 700 0.68rem var(--font-mono);
+		color: var(--muted);
 		cursor: pointer;
-	}
-	:global(:root[data-theme='light']) .tray-btn,
-	:global(:root[data-theme='light']) .clock {
-		color: #000;
+		transition: color 0.15s;
 	}
 	.tray-btn:hover {
-		outline: 1px dotted currentColor;
+		color: var(--accent);
 	}
 	.clock {
 		font-size: 0.72rem;
+		letter-spacing: 0.04em;
 		font-variant-numeric: tabular-nums;
-		color: var(--ink);
+		color: var(--muted);
 	}
 	.menu-btn {
 		display: none;
-	}
-
-	.marquee {
-		overflow: hidden;
-		border-bottom: 1px solid var(--line-soft);
-		background: var(--bg);
-		font-family: var(--font-display);
-		font-size: 1.05rem;
-		line-height: 22px;
-		color: var(--accent);
-		white-space: pre;
-	}
-	:global(:root:not([data-theme='light'])) .marquee {
-		text-shadow: 0 0 6px rgb(255 176 0 / 0.5);
-	}
-	.track {
-		display: inline-flex;
-		animation: scroll 70s linear infinite;
-	}
-	.marquee:hover .track {
-		animation-play-state: paused;
-	}
-	@keyframes scroll {
-		to {
-			transform: translateX(-50%);
-		}
 	}
 
 	.progress {
 		position: absolute;
 		left: 0;
 		right: 0;
-		bottom: -4px;
-		height: 3px;
-		background: repeating-linear-gradient(90deg, var(--ink) 0 8px, transparent 8px 10px);
+		bottom: -1px;
+		height: 1px;
+		background: var(--accent);
 		transform-origin: left;
 	}
 
 	@media (max-width: 860px) {
-		.name .ext,
 		.clock {
 			display: none;
 		}
-		.task {
-			min-width: 0;
+	}
+	@media (max-width: 420px) {
+		.cwd {
+			display: none;
 		}
 	}
 	@media (max-width: 640px) {
+		.bar {
+			gap: 12px;
+		}
+		.tray {
+			margin-left: auto;
+		}
 		.menu-btn {
 			display: inline-flex;
 		}
 		nav {
 			position: absolute;
-			top: 64px;
+			top: 56px;
 			left: 0;
 			right: 0;
-			background: var(--face);
-			box-shadow: inset -1px -1px var(--b-dark), inset 1px 1px var(--b-light);
+			background: var(--bg);
+			border-bottom: 1px solid var(--line-soft);
 			clip-path: inset(0 0 100% 0);
-			transition: clip-path 0.3s steps(6);
+			transition: clip-path 0.3s var(--ease-out);
 		}
 		header.open nav {
-			clip-path: inset(0 0 0 0);
+			clip-path: inset(0 0 -1px 0);
 		}
 		nav ul {
 			flex-direction: column;
-			padding: 8px;
+			padding: 8px var(--gutter) 16px;
 		}
 		.task {
-			height: 40px;
-			font-size: 0.9rem;
+			height: 44px;
+			font-size: 0.95rem;
 		}
 	}
 </style>

@@ -26,7 +26,6 @@
 	];
 
 	const selected = publications.slice(0, 5);
-	const newest = Math.max(...publications.map((p) => p.year));
 
 	const contactLines = [
 		{ text: 'GOT AN IDEA?', outline: false },
@@ -100,7 +99,6 @@
 							<span class="pub-venue">{typeLabel(p.type)} · <em>{p.venue}</em>{p.details && p.type === 'article' ? `, ${p.details}` : ''}</span>
 						</span>
 						<span class="pub-tags">
-							{#if p.year === newest}<span class="new">NEW!</span>{/if}
 							{#if p.openAccess}<span class="tag tag-oa"><Icon name="open" /> OA</span>{/if}
 							<span class="pub-arrow">↗</span>
 						</span>
@@ -118,7 +116,7 @@
 	<div class="container">
 		<div class="section-head" use:reveal>
 			<span class="section-num">$ ls software/</span>
-			<h2 class="section-title">Open code, <span class="hl">reusable</span> data</h2>
+			<h2 class="section-title">Free and Open Source <span class="hl">Software</span></h2>
 		</div>
 
 		<div class="sw-grid">
@@ -163,8 +161,6 @@
 					<Icon name="mail" size={20} />
 					<span use:scramble={profile.email}>{profile.email}</span>
 				</a>
-
-				<p class="construction" aria-hidden="true"><span>this page is permanently under construction</span></p>
 			</div>
 		</div>
 	</div>
@@ -187,9 +183,8 @@
 		gap: 22px;
 	}
 	.area-body {
-		margin-top: 3px;
-		padding: 18px 20px 22px;
-		height: calc(100% - 25px);
+		padding: 22px 22px 26px;
+		height: calc(100% - 31px);
 	}
 	.area-num {
 		display: block;
@@ -199,19 +194,14 @@
 	}
 	.areas h3 {
 		margin: 12px 0 12px;
-		font-size: 2.3rem;
+		font-size: 2.1rem;
 	}
 	.areas p {
 		margin: 0;
 		font-size: 0.86rem;
 	}
-	.areas li:hover .area-body {
-		background: var(--ink);
-		color: var(--bg);
-		text-shadow: none;
-	}
 	.areas li:hover .area-num {
-		background-image: repeating-linear-gradient(to bottom, var(--bg) 0 2px, transparent 2px 4px);
+		background-image: repeating-linear-gradient(to bottom, var(--accent) 0 2px, transparent 2px 4px);
 	}
 
 	/* ============ outputs ============ */
@@ -219,33 +209,34 @@
 		list-style: none;
 		margin: 0;
 		padding: 0;
-		border-top: 2px solid var(--ink);
+		border-top: 1px solid var(--line-soft);
 	}
 	.pubs li {
-		border-bottom: 1px dashed var(--ink);
+		border-bottom: 1px solid var(--line-soft);
 	}
 	.pub,
 	.pub:visited {
 		display: grid;
 		grid-template-columns: 56px minmax(0, 1fr);
 		gap: 8px 20px;
-		padding: 18px 8px;
+		padding: 22px 0;
 		color: var(--ink);
 		text-decoration: none;
+		transition: padding 0.3s var(--ease-out);
 	}
 	.pub:hover {
-		background: var(--ink);
-		color: var(--bg);
-	}
-	.pub:hover .tag-oa {
-		background: var(--bg);
 		color: var(--ink);
-		border-color: var(--bg);
+		padding-left: 10px;
+	}
+	.pub:hover .pub-arrow,
+	.pub:hover .pub-year {
+		color: var(--accent);
 	}
 	.pub-year {
-		font-weight: 700;
-		font-size: 0.85rem;
+		font-size: 0.78rem;
+		color: var(--muted);
 		padding-top: 4px;
+		transition: color 0.15s;
 	}
 	.pub-body {
 		display: flex;
@@ -254,16 +245,12 @@
 	}
 	.pub-title {
 		font-family: var(--font-display);
-		text-transform: uppercase;
-		font-size: clamp(1.5rem, 2.6vw, 2.1rem);
-		line-height: 0.95;
-	}
-	.pub:hover .pub-title::before {
-		content: '> ';
+		font-size: clamp(1.45rem, 2.4vw, 1.9rem);
+		line-height: 1;
 	}
 	.pub-venue {
-		font-size: 0.78rem;
-		opacity: 0.75;
+		font-size: 0.76rem;
+		color: var(--muted);
 	}
 	.pub-tags {
 		grid-column: 2;
@@ -273,8 +260,10 @@
 	}
 	.pub-arrow {
 		margin-left: auto;
-		font-size: 1.3rem;
+		font-size: 1.1rem;
 		line-height: 1;
+		color: var(--muted);
+		transition: color 0.15s;
 	}
 	@media (min-width: 860px) {
 		.pub {
@@ -304,26 +293,25 @@
 		text-decoration: none;
 	}
 	.sw:hover {
-		background: var(--face);
 		color: var(--ink);
 	}
 	.sw-cover {
-		margin-top: 3px;
 		aspect-ratio: 5 / 3;
 		overflow: hidden;
-		box-shadow: inset 1px 1px var(--b-shade);
+		border-bottom: 1px solid var(--line-soft);
+		opacity: 0.7;
+		transition: opacity 0.3s;
 	}
 	.sw:hover .sw-cover {
-		filter: invert(1);
+		opacity: 1;
 	}
 	.sw-body {
 		flex: 1;
-		padding: 12px 12px 14px;
-		background: var(--bg-raised);
+		padding: 16px 16px 18px;
 	}
 	.sw-body h3 {
 		margin: 6px 0 8px;
-		font-size: 2rem;
+		font-size: 1.9rem;
 	}
 	.sw-body p {
 		margin: 0;
@@ -333,8 +321,7 @@
 	/* ============ contact / guestbook ============ */
 	.gb-body {
 		position: relative;
-		margin-top: 3px;
-		padding: clamp(24px, 5vw, 56px);
+		padding: clamp(24px, 5vw, 64px);
 		overflow: hidden;
 	}
 	.gb-bot {
@@ -346,8 +333,8 @@
 	}
 	.kinetic {
 		margin-top: 24px;
-		font-size: clamp(3.6rem, 12vw, 10rem);
-		line-height: 0.82;
+		font-size: clamp(3.2rem, 10vw, 8rem);
+		line-height: 0.86;
 	}
 	.k-line {
 		display: block;
@@ -359,7 +346,7 @@
 		transform: translateY(105%);
 	}
 	.kinetic:global(.is-visible) .k-ch {
-		animation: rise 0.5s steps(5) forwards;
+		animation: rise 0.7s var(--ease-out) forwards;
 		animation-delay: calc(var(--i) * 30ms);
 	}
 	@keyframes rise {
@@ -372,17 +359,14 @@
 		background: repeating-linear-gradient(to bottom, var(--ink) 0 2px, transparent 2px 4px);
 		-webkit-background-clip: text;
 		background-clip: text;
-		text-shadow: none;
 	}
 	.k-ch:hover {
-		background: var(--ink);
-		color: var(--bg);
-		text-shadow: none;
+		color: var(--accent);
 	}
 	.contact-sub {
 		margin-top: 32px;
-		font-family: var(--font-display);
-		font-size: clamp(1.4rem, 2.6vw, 2rem);
+		font-size: 0.9rem;
+		color: var(--muted);
 	}
 	.email {
 		margin-top: 8px;
@@ -390,21 +374,6 @@
 		font-size: clamp(0.85rem, 2.4vw, 1.2rem);
 		text-transform: none;
 		overflow-wrap: anywhere;
-	}
-	.construction {
-		margin: 40px calc(clamp(24px, 5vw, 56px) * -1) calc(clamp(24px, 5vw, 56px) * -1);
-		padding: 8px;
-		text-align: center;
-		font-family: var(--font-pixel);
-		font-size: 0.55rem;
-		line-height: 2;
-		color: #000;
-		text-shadow: none;
-		background: repeating-linear-gradient(-45deg, #ffcc00 0 14px, #111 14px 28px);
-	}
-	.construction span {
-		padding: 4px 10px;
-		background: #ffcc00;
 	}
 	@media (prefers-reduced-motion: reduce) {
 		.k-ch {

@@ -68,13 +68,25 @@
 		z-index: 250;
 		display: grid;
 		place-items: center;
-		/* a boot screen is a black tube with phosphor text, whatever the theme */
-		--tube: #020703;
-		--phos: #3dff8b;
+		/* the shutter takes the current theme: phosphor on black, or ink on paper */
+		--tube: var(--bg);
+		--phos: var(--ink);
 		background: var(--tube);
 		color: var(--phos);
-		text-shadow: 0 0 6px rgb(61 255 139 / 0.5);
 		overflow: hidden;
+	}
+	:global(:root[data-theme='light']) .curtain::after {
+		display: none;
+	}
+	:global(:root[data-theme='light']) .beam {
+		box-shadow: none;
+		background: var(--accent);
+		opacity: 1;
+	}
+	:global(:root[data-theme='light']) .st.skip,
+	:global(:root[data-theme='light']) .st.warn {
+		background: var(--accent);
+		color: var(--bg);
 	}
 	.curtain::after {
 		content: '';
@@ -112,8 +124,8 @@
 		right: 0;
 		height: 2px;
 		background: var(--phos);
-		box-shadow: 0 0 24px 4px var(--phos);
-		opacity: 0.8;
+		box-shadow: 0 0 16px 2px var(--phos);
+		opacity: 0.6;
 	}
 	.in .beam {
 		animation: beam-in 0.42s cubic-bezier(0.7, 0, 0.3, 1) both;

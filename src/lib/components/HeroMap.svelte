@@ -52,7 +52,7 @@
 			href: '#notebook',
 			x: 860,
 			y: 440,
-			preview: ['id-card.txt', 'how-i-got-here.md', 'toolbox.sh', 'side-quests.log']
+			preview: ['id-card.txt', 'path.log', 'toolbox.sh', 'projects.log']
 		},
 		{
 			key: 'contact',
@@ -152,12 +152,12 @@
 
 <div class="term win">
 	<div class="winbar">
-		<span>MS-DOS Prompt — nsheehan@tum: ~ — 80×25</span>
+		<span>MS-DOS Prompt — nsheehan: ~ — 80×25</span>
 		<span class="winbtns" aria-hidden="true"><i>_</i><i>□</i><i>×</i></span>
 	</div>
 
 	<div class="screen win-body">
-		<p class="line"><span class="ps1">nsheehan@tum:~$</span> {typed1}{#if !showName}<span class="caret" />{/if}</p>
+		<p class="line"><span class="ps1">nsheehan:~$</span> {typed1}{#if !showName}<span class="caret" />{/if}</p>
 
 		{#if showName}
 			<h1 class="name" aria-label={profile.name}>
@@ -166,7 +166,7 @@
 				{/each}
 			</h1>
 			<p class="line out">{research}</p>
-			<p class="line"><span class="ps1">nsheehan@tum:~$</span> {typed2}{#if !showMap}<span class="caret" />{/if}</p>
+			<p class="line"><span class="ps1">nsheehan:~$</span> {typed2}{#if !showMap}<span class="caret" />{/if}</p>
 		{/if}
 
 		<!-- desktop: animated link diagram -->
@@ -207,16 +207,16 @@
 				<div class="sheet">
 					{#each [0, 1, 2, 3] as f}<div class="frame" style="--f:{f}"><span class="dots-ht" /></div>{/each}
 					<span class="flash" />
-					<span class="plate-id">SUBJ. 01 · 4 EXP.</span>
+					<span class="plate-id">N. SHEEHAN</span>
 				</div>
 			</figure>
 
 			<div class="callout right" style="left:72%;top:47%">
 				<svg viewBox="0 0 50 30" class="arrow left"><path d="M48 15 H4" pathLength="1" /><circle cx="4" cy="15" r="3" /></svg>
-				<span class="hand">postdoc @ TUM<br />munich ✶</span>
+				<span class="hand">philosophy<br />of data ✶</span>
 			</div>
 			<div class="callout left" style="left:28%;top:47%">
-				<span class="hand small">fig. 1 — the author, in<br />four states of attention</span>
+				<span class="hand small">open science ·<br />open source</span>
 				<svg viewBox="0 0 50 30" class="arrow right"><path d="M2 15 H46" pathLength="1" /><circle cx="46" cy="15" r="3" /></svg>
 			</div>
 
@@ -251,7 +251,7 @@
 				<div class="sheet mini">
 					{#each [0, 1, 2, 3] as f}<div class="frame" style="--f:{f}"><span class="dots-ht" /></div>{/each}
 				</div>
-				<p class="hand">postdoc @ TUM<br /><span class="small">munich ✶</span></p>
+				<p class="hand">philosophy of data<br /><span class="small">open science · open source</span></p>
 			</div>
 			<p class="tree-root">~</p>
 			<ul>
@@ -275,14 +275,8 @@
 </div>
 
 <style>
-	.term {
-		box-shadow: inset -1px -1px var(--b-dark), inset 1px 1px var(--b-light), inset -2px -2px var(--b-shade),
-			inset 2px 2px var(--b-soft), var(--shadow-lg);
-	}
-
 	.screen {
 		position: relative;
-		margin-top: 3px;
 		padding: 18px clamp(14px, 3vw, 28px) 12px;
 		min-height: 200px;
 	}

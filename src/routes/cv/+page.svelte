@@ -67,7 +67,6 @@
 	.doc {
 		position: relative;
 		flex: 1;
-		margin-top: 3px;
 		overflow: hidden;
 		background: var(--bg-raised);
 		box-shadow: inset 1px 1px var(--b-shade);

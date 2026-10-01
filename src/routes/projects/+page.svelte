@@ -83,7 +83,6 @@
 	}
 	.media-inner {
 		position: relative;
-		margin-top: 3px;
 		aspect-ratio: 4 / 3;
 		overflow: hidden;
 		background: var(--bg-raised);
