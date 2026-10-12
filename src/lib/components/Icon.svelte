@@ -15,7 +15,8 @@
 		| 'sun'
 		| 'moon'
 		| 'menu'
-		| 'close';
+		| 'close'
+		| 'rss';
 	export let size = 16;
 </script>
 
@@ -64,6 +65,9 @@
 		{:else if name === 'scholar'}
 			<path d="M12 4 2 10l10 6 10-6-10-6Z" />
 			<path d="M6 12.5V17c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5M22 10v5" />
+		{:else if name === 'rss'}
+			<path d="M5 11a8 8 0 0 1 8 8M5 5a14 14 0 0 1 14 14" />
+			<circle cx="6" cy="18" r="1.5" />
 		{:else if name === 'mail'}
 			<rect x="3" y="5" width="18" height="14" rx="2" />
 			<path d="m3.5 6.5 8.5 6 8.5-6" />

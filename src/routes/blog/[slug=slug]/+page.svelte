@@ -9,7 +9,6 @@
 	{#if post.description}<meta name="description" content={post.description} />{/if}
 	<meta property="og:title" content={post.title} />
 	<meta property="og:type" content="article" />
-	<link rel="alternate" type="application/rss+xml" title="Nathanael Sheehan — blog" href="/blog/rss.xml" />
 </svelte:head>
 
 <article class="container">

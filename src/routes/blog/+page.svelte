@@ -6,7 +6,6 @@
 
 <svelte:head>
 	<title>Blog · Nathanael Sheehan</title>
-	<link rel="alternate" type="application/rss+xml" title="Nathanael Sheehan — blog" href="/blog/rss.xml" />
 </svelte:head>
 
 <div class="container">
@@ -15,7 +14,7 @@
 		<h1 use:reveal={60}>The <span class="hl">blog</span></h1>
 		<p class="lede" use:reveal={120}>
 			Shorter, looser writing on data, standards, open science and whatever I'm building.
-			<a href="/blog/rss.xml">RSS feed</a>.
+			<a href="/blog/rss.xml" data-sveltekit-reload>RSS feed</a>.
 		</p>
 	</header>
 

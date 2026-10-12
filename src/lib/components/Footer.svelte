@@ -21,6 +21,7 @@
 				<li><a href={profile.links.gitlab}><Icon name="gitlab" size={14} /> gitlab/natesheehan</a></li>
 				<li><a href={profile.links.bluesky}><Icon name="bluesky" size={14} /> bsky/nathanaelsheehan</a></li>
 				<li><a href="mailto:{profile.email}"><Icon name="mail" size={14} /> {profile.email}</a></li>
+				<li><a href="/blog/rss.xml" data-sveltekit-reload><Icon name="rss" size={14} /> blog/rss.xml</a></li>
 			</ul>
 		</div>
 
