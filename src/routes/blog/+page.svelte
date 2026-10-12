@@ -11,10 +11,10 @@
 <div class="container">
 	<header class="page-head">
 		<p class="eyebrow cmd" use:reveal>$ ls -t ~/blog</p>
-		<h1 use:reveal={60}>The <span class="hl">blog</span></h1>
+		<h1 use:reveal={60}><span class="hl">B</span>log</h1>
 		<p class="lede" use:reveal={120}>
-			Shorter, looser writing on data, standards, open science and whatever I'm building.
-			<a href="/blog/rss.xml" data-sveltekit-reload>RSS feed</a>.
+			Notes I write before I know what I think.
+			<a href="/blog/rss.xml" target="_blank" rel="noopener">RSS feed</a>.
 		</p>
 	</header>
 

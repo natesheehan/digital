@@ -75,9 +75,7 @@
 		<p class="eyebrow cmd" use:reveal>$ ls -la ~/outputs</p>
 		<h1 use:reveal={60}>Papers,<br /><span class="hl">data</span> &amp; <span class="outline">outputs</span></h1>
 		<p class="lede" use:reveal={120}>
-			Articles, a doctoral thesis, policy recommendations and open datasets on data governance,
-			epistemic injustice and research infrastructures. Full record on
-			<a href={profile.links.orcid}>ORCID</a>.
+			Full record on <a href={profile.links.orcid}>ORCID</a>.
 		</p>
 		<div class="stats" use:reveal={180}>
 			<div><strong>{articleCount}</strong><span>journal articles</span></div>

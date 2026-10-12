@@ -121,11 +121,10 @@
 		</div>
 
 		{#each swGroups as g}
-		<p class="sw-group"><a href="/projects#{g.dir}">{g.dir}/</a> <span>{g.label} · {g.items.length}</span></p>
+		<p class="sw-group"><a href="/software#{g.dir}">{g.dir}/</a> <span>{g.label} · {g.items.length}</span></p>
 		<div class="sw-grid">
 			{#each g.items as s, i}
-				<a class="sw win" href="/projects#{slug(s.name)}" use:reveal={i * 70}>
-					<div class="winbar"><span>{s.name.toUpperCase()}.EXE</span><span class="winbtns"><i>_</i><i>□</i><i>×</i></span></div>
+				<a class="sw win" href="/software#{slug(s.name)}" use:reveal={i * 70}>
 					<div class="sw-cover"><Cover variant={s.cover} seed={s.name} /></div>
 					<div class="sw-body">
 						<span class="eyebrow">{s.kind}</span>

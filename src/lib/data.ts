@@ -21,7 +21,7 @@ export const outputTypes: { id: OutputType; label: string; plural: string }[] = 
 	{ id: 'essay', label: 'Essay', plural: 'Essays' },
 	{ id: 'thesis', label: 'PhD thesis', plural: 'Thesis' },
 	{ id: 'report', label: 'Policy report', plural: 'Reports' },
-	{ id: 'data', label: 'Data & code', plural: 'Data & code' },
+	{ id: 'data', label: 'Data', plural: 'Data' },
 	{ id: 'event', label: 'Workshop', plural: 'Workshops' }
 ];
 
@@ -259,7 +259,7 @@ export type Software = {
 
 export type SoftwareGroup = 'r' | 'web';
 
-/** Display order of the software groups, on the home page and /projects. */
+/** Display order of the software groups, on the home page and /software. */
 export const softwareGroups: { id: SoftwareGroup; label: string; dir: string }[] = [
 	{ id: 'web', label: 'Web apps', dir: 'web-apps' },
 	{ id: 'r', label: 'R packages', dir: 'r-packages' }

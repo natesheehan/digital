@@ -139,6 +139,22 @@
 		margin: 1.6em 0;
 		border: 1px solid var(--line-soft);
 	}
+	/* <figure class="ink" style="--src: url(…)"><img …></figure>: a black-on-transparent
+	   image redrawn in the theme's ink colour; the img keeps the size and alt text (and is
+	   what RSS readers show) */
+	.prose :global(figure.ink) {
+		width: min(100%, 528px);
+		margin: 1.6em 0;
+		background: var(--ink);
+		-webkit-mask: var(--src) center / contain no-repeat;
+		mask: var(--src) center / contain no-repeat;
+	}
+	.prose :global(figure.ink img) {
+		width: 100%;
+		margin: 0;
+		border: 0;
+		opacity: 0;
+	}
 	.prose :global(hr) {
 		margin: 2.4em 0;
 		border: 0;

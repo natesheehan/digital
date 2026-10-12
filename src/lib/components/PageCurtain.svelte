@@ -3,7 +3,7 @@
 	import { beforeNavigate, onNavigate, afterNavigate } from '$app/navigation';
 
 	/** A black shutter scans down between pages while the modem dials in. */
-	const names: Record<string, string> = { '/': '~', '/writing': '~/outputs', '/projects': '~/software', '/blog': '~/blog', '/cv': '~/cv' };
+	const names: Record<string, string> = { '/': '~', '/writing': '~/outputs', '/software': '~/software', '/blog': '~/blog', '/cv': '~/cv' };
 
 	const logs = [
 		['ok', 'handshake: *skreeeee-kshhhh*'],
@@ -26,8 +26,9 @@
 		reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 	});
 
-	beforeNavigate(({ to, from, type }) => {
-		if (reduce || !to || type === 'leave') return;
+	beforeNavigate(({ to, from, type, willUnload }) => {
+		/* full page loads (and downloads) never fire afterNavigate, so the curtain would stick */
+		if (reduce || !to || type === 'leave' || willUnload) return;
 		if (to.url.pathname === from?.url.pathname) return;
 		label = names[to.url.pathname] ?? `~${to.url.pathname}`;
 		const o = Math.floor(Math.random() * logs.length);

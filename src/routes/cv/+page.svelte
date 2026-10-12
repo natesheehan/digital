@@ -16,7 +16,7 @@
 		<p class="eyebrow cmd" use:reveal>$ lpr ~/cv.pdf</p>
 		<h1 use:reveal={60}>Curriculum<br /><span class="outline">vitae</span></h1>
 		<p class="lede" use:reveal={120}>
-			My CV is kept in the open and versioned on GitHub.
+			I keep my CV in the open — every version lives on GitHub.
 		</p>
 		<div class="actions" use:reveal={180}>
 			<a class="btn btn-primary" href={profile.links.cv} download><Icon name="download" /> Download PDF</a>

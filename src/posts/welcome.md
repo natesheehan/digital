@@ -6,10 +6,6 @@ tags: [poems]
 draft: false
 ---
 
-Daring dadaism didn't do diddly.
-Gleeful ghouls                                                           grinning guilty.
-Paradox posed, 
-packaged prettily.
-
-        Mundane mocking,  making meaning, minimally. 
-Daring dadaism didn't do diddly.
+<figure class="ink" style="--src: url(/blog/didly.png)">
+	<img src="/blog/didly.png" alt="Daring dadaism didn’t do diddly. Gleeful ghouls grinning guilty. Paradox posed, packaged prettily. Mundane mocking, making meaning, minimally. Daring dadaism didn’t do diddly." width="352" height="200" />
+</figure>

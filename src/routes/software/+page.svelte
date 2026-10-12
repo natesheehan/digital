@@ -20,8 +20,9 @@
 		<p class="eyebrow cmd" use:reveal>$ ls -l ~/software</p>
 		<h1 use:reveal={60}>Open code<br />for <span class="hl">open</span> questions</h1>
 		<p class="lede" use:reveal={120}>
-			R packages, data packages and interactive platforms built alongside my research. The source
-			for each is on <a href={profile.links.github}>GitHub</a> — issues and pull requests welcome.
+			I try to put everything I build out in the open, so others can use it — and, with a bit of
+			luck, help me make it better. Grab the code on <a href={profile.links.github}>GitHub</a>,
+			open an issue, send a pull request.
 		</p>
 	</header>
 

@@ -13,5 +13,5 @@ export function GET({ url }) {
 		})
 		.join('');
 	const xml = `<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>${esc(profile.name)} — blog</title><link>${site}/blog</link><description>${esc(profile.about)}</description>${items}</channel></rss>`;
-	return new Response(xml, { headers: { 'Content-Type': 'application/rss+xml; charset=utf-8', 'Cache-Control': 'public, max-age=3600' } });
+	return new Response(xml, { headers: { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=3600' } });
 }

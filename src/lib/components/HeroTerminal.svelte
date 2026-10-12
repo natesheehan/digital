@@ -14,7 +14,7 @@
 
 	const entries: Entry[] = [
 		{ name: 'outputs/', perms: 'drwxr-xr-x', size: String(publications.length), href: '/writing', note: 'articles, thesis, reports & data' },
-		{ name: 'software/', perms: 'drwxr-xr-x', size: String(software.length), href: '/projects', note: 'free & open source' },
+		{ name: 'software/', perms: 'drwxr-xr-x', size: String(software.length), href: '/software', note: 'free & open source' },
 		{ name: 'blog/', perms: 'drwxr-xr-x', size: '1', href: '/blog', note: 'posts' },
 		{ name: 'cv.pdf', perms: '-rw-r--r--', size: '1', href: '/cv' },
 		{ name: 'notebook.md', perms: '-rw-r--r--', size: '1', href: '#notebook' },
