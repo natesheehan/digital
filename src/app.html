@@ -2,6 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
+		<link rel="preload" href="%sveltekit.assets%/intro-poster.jpg" as="image" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta
@@ -18,6 +19,9 @@
 			try {
 				const t = localStorage.getItem('theme');
 				if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+			} catch (e) {}
+			try {
+				if (!sessionStorage.getItem('intro-seen')) document.documentElement.dataset.intro = '1';
 			} catch (e) {}
 		</script>
 		%sveltekit.head%

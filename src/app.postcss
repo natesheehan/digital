@@ -467,3 +467,66 @@ video {
 		animation-iteration-count: 1 !important;
 	}
 }
+
+/* ------------------------------------------------------------------
+   TTY: a real terminal emulator (Tango palette), dark in both themes.
+   Shared by the home hero (bash) and the notebook (vim).
+   ------------------------------------------------------------------ */
+.tty {
+	--t-bg: #0b0d0c;
+	--t-bg-hi: #161a18;
+	--t-fg: #d7dad8;
+	--t-dim: #7d8580;
+	--t-line: #2a2e2c;
+	--t-green: #8ae234;
+	--t-blue: #729fcf;
+	--t-cyan: #34e2e2;
+	--t-red: #ef2929;
+	--t-yellow: #fce94f;
+	--t-magenta: #ad7fa8;
+	border: 1px solid var(--t-line);
+	background: var(--t-bg);
+	color: var(--t-fg);
+	font-family: 'DejaVu Sans Mono', 'Ubuntu Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	font-size: clamp(11px, 1.35vw, 14px);
+	line-height: 1.35;
+}
+
+.tty-bar {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 30px;
+	background: #1e2120;
+	border-bottom: 1px solid var(--t-line);
+	color: #b9bdbb;
+	font-family: system-ui, -apple-system, 'Segoe UI', Ubuntu, sans-serif;
+	font-size: 12px;
+	user-select: none;
+	cursor: default;
+}
+
+.tty-ctl {
+	position: absolute;
+	right: 10px;
+	display: flex;
+	gap: 14px;
+}
+
+.tty-ctl i {
+	font-style: normal;
+}
+
+/* first-load intro (Intro.svelte): black out the page until the intro mounts */
+html[data-intro] body {
+	overflow: hidden;
+}
+
+html[data-intro] body::before {
+	content: '';
+	position: fixed;
+	inset: 0;
+	z-index: 299;
+	background: #000;
+}

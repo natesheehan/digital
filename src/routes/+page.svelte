@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Bot from '$lib/components/Bot.svelte';
-	import HeroMap from '$lib/components/HeroMap.svelte';
-	import Workstation from '$lib/components/Workstation.svelte';
+	import HeroTerminal from '$lib/components/HeroTerminal.svelte';
+	import Notebook from '$lib/components/Notebook.svelte';
 	import Icon from '$lib/components/Icon.svelte';
 	import Cover from '$lib/components/Cover.svelte';
 	import { profile, publications, software, slug, typeLabel } from '$lib/data';
@@ -42,7 +42,7 @@
 <!-- ============================ HERO ============================ -->
 <section class="hero">
 	<div class="container">
-		<HeroMap />
+		<HeroTerminal />
 	</div>
 </section>
 
@@ -50,10 +50,10 @@
 <section class="section" id="notebook">
 	<div class="container">
 		<div class="section-head" use:reveal>
-			<span class="section-num">$ boot nate-pc</span>
+			<span class="section-num">$ vim notebook/</span>
 			<h2 class="section-title">Get to <span class="hl">know</span> me</h2>
 		</div>
-		<div use:reveal={80}><Workstation /></div>
+		<div use:reveal={80}><Notebook /></div>
 	</div>
 </section>
 
