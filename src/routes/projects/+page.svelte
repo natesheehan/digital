@@ -2,8 +2,13 @@
 	import Icon from '$lib/components/Icon.svelte';
 	import Cover from '$lib/components/Cover.svelte';
 	import Bot from '$lib/components/Bot.svelte';
-	import { software, profile, slug } from '$lib/data';
+	import { software, softwareGroups, profile, slug } from '$lib/data';
 	import { reveal } from '$lib/actions';
+
+	const groups = softwareGroups.map((g) => ({
+		...g,
+		items: software.filter((s) => s.group === g.id)
+	}));
 </script>
 
 <svelte:head>
@@ -20,40 +25,68 @@
 		</p>
 	</header>
 
-	<div class="projects">
-		{#each software as s, i}
-			<article class="project" class:flip={i % 2 === 1} id={slug(s.name)} use:reveal>
-				<div class="media win">
-					<div class="winbar"><span>{s.name.toUpperCase()}.{s.media?.type === 'video' ? 'AVI' : 'BMP'}</span><span class="winbtns" aria-hidden="true"><i>_</i><i>□</i><i>×</i></span></div>
-					<div class="media-inner">
-					{#if s.media?.type === 'video'}
-						<video src={s.media.src} autoplay muted loop playsinline aria-label={s.media.alt} />
-					{:else if s.media?.type === 'image'}
-						<img src={s.media.src} alt={s.media.alt} loading="lazy" decoding="async" />
-					{:else}
-						<Cover variant={s.cover} seed={s.name} />
-					{/if}
-					<span class="index">{String(i + 1).padStart(2, '0')} / {String(software.length).padStart(2, '0')}</span>
-					</div>
-				</div>
+	{#each groups as g}
+		<section class="group" id={g.dir} aria-labelledby="{g.dir}-title">
+			<header class="group-head" use:reveal>
+				<span class="section-num">$ ls -l ~/software/{g.dir}</span>
+				<h2 class="section-title" id="{g.dir}-title">{g.label}</h2>
+			</header>
+			<div class="projects">
+				{#each g.items as s, i}
+					<article class="project" class:flip={i % 2 === 1} id={slug(s.name)} use:reveal>
+						<div class="media win">
+							<div class="winbar">
+								<span
+									>{s.name.toUpperCase()}.{s.media?.type === 'video'
+										? 'AVI'
+										: s.media?.src.endsWith('.gif')
+										? 'GIF'
+										: 'BMP'}</span
+								><span class="winbtns" aria-hidden="true"><i>_</i><i>□</i><i>×</i></span>
+							</div>
+							<div class="media-inner">
+								{#if s.media?.type === 'video'}
+									<video
+										src={s.media.src}
+										autoplay
+										muted
+										loop
+										playsinline
+										aria-label={s.media.alt}
+									/>
+								{:else if s.media?.type === 'image'}
+									<img src={s.media.src} alt={s.media.alt} loading="lazy" decoding="async" />
+								{:else}
+									<Cover variant={s.cover} seed={s.name} />
+								{/if}
+								<span class="index"
+									>{String(i + 1).padStart(2, '0')} / {String(g.items.length).padStart(
+										2,
+										'0'
+									)}</span
+								>
+							</div>
+						</div>
 
-				<div class="presenter" aria-hidden="true"><Bot delay={300} /></div>
-				<div class="info">
-					<span class="eyebrow">{s.kind}</span>
-					<h2>{s.name}</h2>
-					<p class="summary">{s.summary}</p>
-					<p class="desc">{s.description}</p>
-					<ul class="tags">
-						{#each s.tags as t}<li class="tag">{t}</li>{/each}
-					</ul>
-					<div class="links">
-						<a class="btn btn-primary" href={s.site}>Visit <Icon name="external" /></a>
-						<a class="btn" href={s.repo}><Icon name="github" /> Source</a>
-					</div>
-				</div>
-			</article>
-		{/each}
-	</div>
+						<div class="presenter" aria-hidden="true"><Bot delay={300} /></div>
+						<div class="info">
+							<span class="eyebrow">{s.kind}</span>
+							<h3>{s.name}</h3>
+							<p class="summary">{s.summary}</p>
+							<p class="desc">{s.description}</p>
+							<ul class="tags">
+								{#each s.tags as t}<li class="tag">{t}</li>{/each}
+							</ul>
+							<div class="links">
+								<a class="btn btn-primary" href={s.site}>Visit <Icon name="external" /></a>
+								<a class="btn" href={s.repo}><Icon name="github" /> Source</a>
+							</div>
+						</div>
+					</article>
+				{/each}
+			</div>
+		</section>
+	{/each}
 </div>
 
 <style>
@@ -135,7 +168,19 @@
 		font-family: var(--font-mono);
 		font-size: 0.72rem;
 	}
-	h2 {
+	.group-head {
+		display: grid;
+		gap: 14px;
+		padding-top: clamp(32px, 5vw, 56px);
+		border-top: 1px solid var(--line-soft);
+	}
+	@media (min-width: 860px) {
+		.group-head {
+			grid-template-columns: 240px minmax(0, 1fr);
+			align-items: baseline;
+		}
+	}
+	h3 {
 		margin: 8px 0 12px;
 		font-size: clamp(2.6rem, 5vw, 3.8rem);
 	}

@@ -254,7 +254,16 @@ export type Software = {
 	site: string;
 	media?: { type: 'video' | 'image'; src: string; alt: string };
 	cover: 'river' | 'grid' | 'dots';
+	group: SoftwareGroup;
 };
+
+export type SoftwareGroup = 'r' | 'web';
+
+/** Display order of the software groups, on the home page and /projects. */
+export const softwareGroups: { id: SoftwareGroup; label: string; dir: string }[] = [
+	{ id: 'web', label: 'Web apps', dir: 'web-apps' },
+	{ id: 'r', label: 'R packages', dir: 'r-packages' }
+];
 
 export const software: Software[] = [
 	{
@@ -266,7 +275,13 @@ export const software: Software[] = [
 		tags: ['Web', 'Education', 'Collaboration'],
 		repo: 'https://github.com/natesheehan/CC',
 		site: 'https://cc-nine-dusky.vercel.app/',
-		cover: 'grid'
+		media: {
+			type: 'image',
+			src: '/software/concept-cartography.gif',
+			alt: 'Screen recording of Concept Cartography: switching example maps, browsing the maps list, then searching and zooming the Research Data Management Principles map.'
+		},
+		cover: 'grid',
+		group: 'web'
 	},
 	{
 		name: 'Storie di Insetti',
@@ -277,7 +292,13 @@ export const software: Software[] = [
 		tags: ['Web', 'Citizen science', 'Storytelling'],
 		repo: 'https://github.com/natesheehan/pianeta-lab-storia-public',
 		site: 'https://pianeta-lab-storia.vercel.app/',
-		cover: 'dots'
+		media: {
+			type: 'image',
+			src: '/software/storie-di-insetti.gif',
+			alt: 'Screen recording of Storie di Insetti: switching the site to English, choosing a cicada or firefly and a story format, then continuing to the recording step.'
+		},
+		cover: 'dots',
+		group: 'web'
 	},
 	{
 		name: 'RMU₂',
@@ -288,7 +309,13 @@ export const software: Software[] = [
 		tags: ['Web', 'Modelling', 'Events'],
 		repo: 'https://gitlab.com/natesheehan/responsible-modelling-under-uncertainty',
 		site: 'https://rmu2.org/',
-		cover: 'river'
+		media: {
+			type: 'image',
+			src: '/software/rmu2.gif',
+			alt: 'Screen recording of the RMU₂ workshop site: the home page, the programme, the shared models space and the light theme.'
+		},
+		cover: 'river',
+		group: 'web'
 	},
 	{
 		name: 'GIGWORK.city',
@@ -300,7 +327,8 @@ export const software: Software[] = [
 		repo: 'https://github.com/gigwork/Gigwork-Stories',
 		site: 'https://gigwork.city/',
 		media: { type: 'video', src: '/FM74HVOXwAEAte_.mp4', alt: 'Animated map from GIGWORK.city' },
-		cover: 'grid'
+		cover: 'grid',
+		group: 'web'
 	},
 	{
 		name: 'abstr',
@@ -316,7 +344,8 @@ export const software: Software[] = [
 			src: '/128907563-4aa95b30-a98d-4fbc-9275-97e0b30dd227.gif',
 			alt: 'Simulated trips generated with abstr in A/B Street'
 		},
-		cover: 'grid'
+		cover: 'grid',
+		group: 'r'
 	},
 	{
 		name: 'River Sentiment Dashboard',
@@ -327,7 +356,13 @@ export const software: Software[] = [
 		tags: ['Web', 'Sentiment analysis', 'Environment'],
 		repo: 'https://github.com/Digital-Water-Publics/Thames21-Socio-Ecological-Dashboard',
 		site: 'https://thames21ox.web.app/',
-		cover: 'river'
+		media: {
+			type: 'image',
+			src: '/software/river-sentiment-dashboard.gif',
+			alt: 'Screen recording of the River Sentiment Dashboard: searching for a river, its sentiment chart over time, and the river on the map.'
+		},
+		cover: 'river',
+		group: 'web'
 	},
 	{
 		name: 'eaCatcheR',
@@ -338,7 +373,8 @@ export const software: Software[] = [
 		tags: ['R', 'Open government data', 'Hydrology'],
 		repo: 'https://github.com/natesheehan/eaCatcheR',
 		site: 'https://natesheehan.github.io/eaCatcheR/',
-		cover: 'river'
+		cover: 'river',
+		group: 'r'
 	},
 	{
 		name: 'dimaqdata',
@@ -349,7 +385,8 @@ export const software: Software[] = [
 		tags: ['R', 'Open data', 'Air quality'],
 		repo: 'https://github.com/environmental-intelligence-exeter/dimaqdata',
 		site: 'https://environmental-intelligence-exeter.github.io/dimaqdata/',
-		cover: 'dots'
+		cover: 'dots',
+		group: 'r'
 	}
 ];
 

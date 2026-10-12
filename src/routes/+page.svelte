@@ -4,7 +4,7 @@
 	import Notebook from '$lib/components/Notebook.svelte';
 	import Icon from '$lib/components/Icon.svelte';
 	import Cover from '$lib/components/Cover.svelte';
-	import { profile, publications, software, slug, typeLabel } from '$lib/data';
+	import { profile, publications, software, softwareGroups, slug, typeLabel } from '$lib/data';
 	import { reveal, scramble } from '$lib/actions';
 
 	const areas = [
@@ -26,6 +26,7 @@
 	];
 
 	const selected = publications.slice(0, 5);
+	const swGroups = softwareGroups.map((g) => ({ ...g, items: software.filter((s) => s.group === g.id) }));
 
 	const contactLines = [
 		{ text: 'GOT AN IDEA?', outline: false },
@@ -119,8 +120,10 @@
 			<h2 class="section-title">Free and Open Source <span class="hl">Software</span></h2>
 		</div>
 
+		{#each swGroups as g}
+		<p class="sw-group"><a href="/projects#{g.dir}">{g.dir}/</a> <span>{g.label} · {g.items.length}</span></p>
 		<div class="sw-grid">
-			{#each software as s, i}
+			{#each g.items as s, i}
 				<a class="sw win" href="/projects#{slug(s.name)}" use:reveal={i * 70}>
 					<div class="winbar"><span>{s.name.toUpperCase()}.EXE</span><span class="winbtns"><i>_</i><i>□</i><i>×</i></span></div>
 					<div class="sw-cover"><Cover variant={s.cover} seed={s.name} /></div>
@@ -132,6 +135,7 @@
 				</a>
 			{/each}
 		</div>
+		{/each}
 		<p class="rows">{software.length} file(s)</p>
 	</div>
 </section>
@@ -280,9 +284,26 @@
 	}
 
 	/* ============ software ============ */
+	.sw-group {
+		display: flex;
+		align-items: baseline;
+		gap: 12px;
+		margin: 0 0 14px;
+		font-size: 0.85rem;
+	}
+	.sw-group:not(:first-of-type) {
+		margin-top: 40px;
+	}
+	.sw-group a {
+		font-weight: 600;
+		text-decoration: none;
+	}
+	.sw-group span {
+		color: var(--muted);
+	}
 	.sw-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
 		gap: 18px;
 	}
 	.sw,

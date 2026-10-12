@@ -1,7 +1,5 @@
 <script lang="ts">
 	import '../app.postcss';
-	import { fade } from 'svelte/transition';
-	import { cubicOut } from 'svelte/easing';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import Field from '$lib/components/Field.svelte';
@@ -19,7 +17,7 @@
 <Header />
 
 {#key data.url}
-	<main id="main" in:fade={{ duration: 300, easing: cubicOut }}>
+	<main id="main">
 		<div class="page"><slot /></div>
 	</main>
 {/key}

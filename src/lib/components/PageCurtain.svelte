@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { beforeNavigate, afterNavigate } from '$app/navigation';
+	import { beforeNavigate, onNavigate, afterNavigate } from '$app/navigation';
 
 	/** A black shutter scans down between pages while the modem dials in. */
 	const names: Record<string, string> = { '/': '~', '/writing': '~/outputs', '/projects': '~/software', '/blog': '~/blog', '/cv': '~/cv' };
@@ -34,6 +34,15 @@
 		lines = [['ok', 'ATDT 0800-OPEN-SCIENCE'], ...[0, 1].map((k) => logs[(o + k) % logs.length]), ['ok', 'CONNECT 56000']];
 		phase = 'in';
 		started = performance.now();
+	});
+
+	/* hold the DOM swap until the shutter has fully closed, so the new page never shows
+	   through a half-drawn curtain (fast loads used to finish before shut-in did) */
+	const SHUT_MS = 440;
+	onNavigate(() => {
+		if (phase !== 'in') return;
+		const left = SHUT_MS - (performance.now() - started);
+		if (left > 0) return new Promise<void>((r) => setTimeout(r, left));
 	});
 
 	afterNavigate(() => {
