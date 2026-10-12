@@ -7,6 +7,7 @@
 		{ href: '/', label: 'home' },
 		{ href: '/writing', label: 'outputs' },
 		{ href: '/projects', label: 'software' },
+		{ href: '/blog', label: 'blog' },
 		{ href: '/cv', label: 'cv' }
 	];
 

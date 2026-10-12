@@ -8,7 +8,7 @@ export const profile = {
 		orcid: 'https://orcid.org/0000-0002-2779-0976',
 		gitlab: 'https://gitlab.com/natesheehan',
 		bluesky: 'https://bsky.app/profile/nathanaelsheehan.bsky.social',
-		cv: 'https://natesheehan.github.io/cv/CV.pdf',
+		cv: 'https://natesheehan.github.io/cv/cv.pdf',
 		cvSource: 'https://github.com/natesheehan/cv',
 		source: 'https://github.com/natesheehan/digital'
 	}

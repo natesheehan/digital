@@ -15,6 +15,7 @@
 	const entries: Entry[] = [
 		{ name: 'outputs/', perms: 'drwxr-xr-x', size: String(publications.length), href: '/writing', note: 'articles, thesis, reports & data' },
 		{ name: 'software/', perms: 'drwxr-xr-x', size: String(software.length), href: '/projects', note: 'free & open source' },
+		{ name: 'blog/', perms: 'drwxr-xr-x', size: '1', href: '/blog', note: 'posts' },
 		{ name: 'cv.pdf', perms: '-rw-r--r--', size: '1', href: '/cv' },
 		{ name: 'notebook.md', perms: '-rw-r--r--', size: '1', href: '#notebook' },
 		{ name: 'contact.sh', perms: '-rwxr-xr-x', size: '1', href: '#contact' },
@@ -93,7 +94,7 @@
 			case 'help':
 				say('GNU bash, version 5.2 — commands on this machine:');
 				say('  ls              list home');
-				say('  cd <dir>        open a directory (outputs, software)');
+				say('  cd <dir>        open a directory (outputs, software, blog)');
 				say('  open <file>     open a file or link (cv.pdf, github, orcid …)');
 				say('  ./contact.sh    say hello');
 				say('  whoami · pwd · date · echo · clear');

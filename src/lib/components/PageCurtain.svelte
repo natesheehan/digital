@@ -3,7 +3,7 @@
 	import { beforeNavigate, afterNavigate } from '$app/navigation';
 
 	/** A black shutter scans down between pages while the modem dials in. */
-	const names: Record<string, string> = { '/': '~', '/writing': '~/outputs', '/projects': '~/software', '/cv': '~/cv' };
+	const names: Record<string, string> = { '/': '~', '/writing': '~/outputs', '/projects': '~/software', '/blog': '~/blog', '/cv': '~/cv' };
 
 	const logs = [
 		['ok', 'handshake: *skreeeee-kshhhh*'],
