@@ -4,8 +4,6 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import Field from '$lib/components/Field.svelte';
 	import ClickBurst from '$lib/components/ClickBurst.svelte';
-	import PageCurtain from '$lib/components/PageCurtain.svelte';
-	import Intro from '$lib/components/Intro.svelte';
 
 	export let data;
 </script>
@@ -25,8 +23,6 @@
 <Footer />
 
 <ClickBurst />
-<PageCurtain />
-<Intro />
 
 <style>
 	main {

@@ -517,16 +517,3 @@ video {
 .tty-ctl i {
 	font-style: normal;
 }
-
-/* first-load intro (Intro.svelte): black out the page until the intro mounts */
-html[data-intro] body {
-	overflow: hidden;
-}
-
-html[data-intro] body::before {
-	content: '';
-	position: fixed;
-	inset: 0;
-	z-index: 299;
-	background: #000;
-}

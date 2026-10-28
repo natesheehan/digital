@@ -7,24 +7,6 @@
 	import { profile, publications, software, softwareGroups, slug, typeLabel } from '$lib/data';
 	import { reveal, scramble } from '$lib/actions';
 
-	const areas = [
-		{
-			file: 'OPEN_DATA.TXT',
-			title: 'Philosophy of (open) data',
-			body: 'What data are, how they travel, and what “openness” actually requires of the infrastructures that collect, standardise and share them — from SARS-CoV-2 genomes to global health research.'
-		},
-		{
-			file: 'STANDARDS.TXT',
-			title: 'Sociology of (scientific) standards',
-			body: 'How formats, metadata schemas and submission norms decide whose data count — and how they can exclude researchers whose data are sound but formatted differently.'
-		},
-		{
-			file: 'ENV_INTEL.TXT',
-			title: 'Environmental intelligence',
-			body: 'Data-intensive research on environment and health, and the open tools that support it — the field of my doctoral training at the University of Exeter.'
-		}
-	];
-
 	const selected = publications.slice(0, 5);
 	const swGroups = softwareGroups.map((g) => ({ ...g, items: software.filter((s) => s.group === g.id) }));
 
@@ -55,30 +37,6 @@
 			<h2 class="section-title">Get to <span class="hl">know</span> me</h2>
 		</div>
 		<div use:reveal={80}><Notebook /></div>
-	</div>
-</section>
-
-<!-- ============================ AREAS ============================ -->
-<section class="section" id="research">
-	<div class="container">
-		<div class="section-head" use:reveal>
-			<span class="section-num">$ cat research/*.txt</span>
-			<h2 class="section-title">Core <span class="hl">areas</span></h2>
-		</div>
-
-		<ol class="areas">
-			{#each areas as a, i}
-				<li class="win" use:reveal={i * 90}>
-					<div class="winbar"><span>{a.file}</span><span class="winbtns"><i>_</i><i>□</i><i>×</i></span></div>
-					<div class="win-body area-body">
-						<span class="area-num outline">{String(i + 1).padStart(2, '0')}</span>
-						<h3>{a.title}</h3>
-						<p>{a.body}</p>
-					</div>
-				</li>
-			{/each}
-		</ol>
-		<p class="rows">3 file(s)</p>
 	</div>
 </section>
 
@@ -125,7 +83,15 @@
 		<div class="sw-grid">
 			{#each g.items as s, i}
 				<a class="sw win" href="/software#{slug(s.name)}" use:reveal={i * 70}>
-					<div class="sw-cover"><Cover variant={s.cover} seed={s.name} /></div>
+					<div class="sw-cover">
+							{#if s.media?.type === 'video'}
+								<video src={s.media.src} autoplay muted loop playsinline aria-label={s.media.alt} />
+							{:else if s.media?.type === 'image'}
+								<img src={s.media.src} alt={s.media.alt} loading="lazy" decoding="async" />
+							{:else}
+								<Cover variant={s.cover} seed={s.name} />
+							{/if}
+						</div>
 					<div class="sw-body">
 						<span class="eyebrow">{s.kind}</span>
 						<h3>{s.name}</h3>
@@ -174,37 +140,6 @@
 	.hero {
 		position: relative;
 		padding: clamp(24px, 4vw, 48px) 0 clamp(40px, 6vw, 64px);
-	}
-
-	/* ============ areas ============ */
-	.areas {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
-		gap: 22px;
-	}
-	.area-body {
-		padding: 22px 22px 26px;
-		height: calc(100% - 31px);
-	}
-	.area-num {
-		display: block;
-		font-family: var(--font-display);
-		font-size: 5rem;
-		line-height: 0.8;
-	}
-	.areas h3 {
-		margin: 12px 0 12px;
-		font-size: 2.1rem;
-	}
-	.areas p {
-		margin: 0;
-		font-size: 0.86rem;
-	}
-	.areas li:hover .area-num {
-		background-image: repeating-linear-gradient(to bottom, var(--accent) 0 2px, transparent 2px 4px);
 	}
 
 	/* ============ outputs ============ */
@@ -324,6 +259,18 @@
 	}
 	.sw:hover .sw-cover {
 		opacity: 1;
+	}
+	.sw-cover video,
+	.sw-cover img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		filter: grayscale(1) contrast(1.2);
+	}
+	:global(:root:not([data-theme='light'])) .sw-cover video,
+	:global(:root:not([data-theme='light'])) .sw-cover img {
+		filter: grayscale(1) contrast(1.3) sepia(1) hue-rotate(75deg) saturate(3) brightness(0.9);
 	}
 	.sw-body {
 		flex: 1;
